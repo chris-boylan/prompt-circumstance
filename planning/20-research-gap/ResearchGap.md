@@ -1,0 +1,2 @@
+Despite substantial work on prompt injection, current evidence is fragmented across benchmark styles, attack-specific studies, and defence-specific evaluations. There is no widely adopted, reproducible methodology that tests attack transferability and defence effectiveness across direct, indirect, and tool-integrated agent settings under consistent experimental conditions, while also validating the robustness of automated evaluation itself.
+
