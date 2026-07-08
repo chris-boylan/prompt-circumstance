@@ -15,6 +15,8 @@ Use this structure to keep dissertation planning docs ordered by purpose and bui
 - `20-research-gap/ResearchGap.md`
 - `30-method-specs/task-schema-spec.md`
 - `30-method-specs/research-build-breakdown.md`
+- `30-method-specs/attack-template-spec.md`
+- `30-method-specs/run-logging-schema-spec.md`
 - `40-implementation/implementation-slice-01.md`
-
-
+- `40-implementation/implementation-slice-02.md`
+- `40-implementation/current-development-state.md`

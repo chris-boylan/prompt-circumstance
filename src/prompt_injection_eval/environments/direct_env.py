@@ -11,7 +11,9 @@ from ..tasks.evaluator import evaluate_task
 from ..tasks.schema import Task
 
 
-def run_benign(config: RunConfig, task: Task, system_prompt: str) -> dict:
+def run_benign(
+    config: RunConfig, task: Task, system_prompt: str, experiment_id: str
+) -> dict:
     """Execute one benign trial and return a full run record.
 
     Flow: model call -> deterministic task scoring -> log-ready record.
@@ -30,11 +32,13 @@ def run_benign(config: RunConfig, task: Task, system_prompt: str) -> dict:
         latency_ms=response.latency_ms,
         token_usage=response.token_usage,
         benign_or_attack="benign",
+        experiment_id=experiment_id,
+        model_version=response.model_version,
     )
 
 
 def run_attacked(
-    config: RunConfig, task: Task, template: AttackTemplate, system_prompt: str
+    config: RunConfig, task: Task, template: AttackTemplate, system_prompt: str, experiment_id: str
 ) -> dict:
     """Execute one attacked trial and return a full run record.
 
@@ -58,5 +62,6 @@ def run_attacked(
         latency_ms=response.latency_ms,
         token_usage=response.token_usage,
         benign_or_attack="attack",
+        experiment_id=experiment_id,
+        model_version=response.model_version,
     )
-

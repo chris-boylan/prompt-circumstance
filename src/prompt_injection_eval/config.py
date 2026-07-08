@@ -29,7 +29,7 @@ class RunConfig(BaseModel):
     run_id: str
     defence_condition: Literal["none", "prompt_hardening"]
     model: ModelConfig
-    environment: Literal["direct"] = "direct"
+    environment: Literal["direct", "indirect"] = "direct"
     tasks_file: Path
     output_dir: Path
     include_benign: bool = True
@@ -44,4 +44,3 @@ class RunConfig(BaseModel):
         with open(path) as f:
             data = yaml.safe_load(f)
         return cls(**data)
-

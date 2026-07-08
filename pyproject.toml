@@ -16,7 +16,7 @@ dependencies = [
 ]
 
 [project.scripts]
-pie-run = "prompt_injection_eval.runner:main"
+pac-run = "prompt_injection_eval.runner:main"
 
 [project.optional-dependencies]
 test = [

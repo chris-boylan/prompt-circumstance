@@ -8,9 +8,9 @@ Tagline: a prompt-injection robustness harness with deterministic scoring and au
 
 ## What this is
 
-A researcher-controlled evaluation harness for **Slice 1** of the dissertation:
+A researcher-controlled evaluation harness for early dissertation slices:
 
-- **Environment**: direct prompt injection (single-turn, no tools, no retrieval)
+- **Environment**: direct and indirect prompt injection (single-turn, no tools, no retrieval)
 - **Task**: structured support-ticket classification → fixed JSON output
 - **Attack families**: instruction override · canary exfiltration · structured output disruption
 - **Defence conditions**: no defence (baseline) · prompt hardening
@@ -25,7 +25,7 @@ A researcher-controlled evaluation harness for **Slice 1** of the dissertation:
 
 ```bash
 cd /Users/chboylan/Code/thesis
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate
 pip install -e .
 ```
@@ -33,8 +33,10 @@ pip install -e .
 ### 2. Smoke test with mock provider (no API needed)
 
 ```bash
-pie-run --config configs/slice1-mock-baseline.yaml
-pie-run --config configs/slice1-mock-hardened.yaml
+pac-run --config configs/direct-mock-baseline.yaml
+pac-run --config configs/direct-mock-hardened.yaml
+pac-run --config configs/indirect-mock-baseline.yaml
+pac-run --config configs/indirect-mock-hardened.yaml
 ```
 
 Results land in `results/raw/` (JSONL) and `results/summaries/` (CSV).
@@ -46,16 +48,26 @@ brew install ollama
 ollama pull llama3.1:8b
 ollama serve &   # keep running in background
 
-pie-run --config configs/slice1-ollama-baseline.yaml
-pie-run --config configs/slice1-ollama-hardened.yaml
+pac-run --config configs/direct-ollama-baseline.yaml
+pac-run --config configs/direct-ollama-hardened.yaml
+pac-run --config configs/indirect-ollama-baseline.yaml
+pac-run --config configs/indirect-ollama-hardened.yaml
+```
+
+If you see `model 'llama3.1:8b' not found`, confirm which tags are installed and
+either pull the expected tag or update `model_name` in your config:
+
+```bash
+ollama list
+ollama pull llama3.1:8b
 ```
 
 ### 4. Run with GPT-4.1 (after ethics confirmation)
 
 ```bash
 export OPENAI_API_KEY=sk-...
-pie-run --config configs/slice1-openai-baseline.yaml
-pie-run --config configs/slice1-openai-hardened.yaml
+pac-run --config configs/direct-openai-baseline.yaml
+pac-run --config configs/direct-openai-hardened.yaml
 ```
 
 ---
@@ -83,18 +95,24 @@ src/prompt_injection_eval/
     prompt_hardening.py # Condition 1: prepend security policy
   environments/
     direct_env.py       # run_benign / run_attacked
+    indirect_env.py     # indirect untrusted-content benign / attacked runs
 
 data/
   tasks/direct_tasks.jsonl          # 15 synthetic support tickets
+  tasks/indirect_tasks.jsonl        # indirect tasks with untrusted content blocks
   attacks/direct_attack_templates.json  # attack template reference (JSON mirror)
 
 configs/
-  slice1-mock-baseline.yaml
-  slice1-mock-hardened.yaml
-  slice1-ollama-baseline.yaml
-  slice1-ollama-hardened.yaml
-  slice1-openai-baseline.yaml
-  slice1-openai-hardened.yaml
+  direct-mock-baseline.yaml
+  direct-mock-hardened.yaml
+  direct-ollama-baseline.yaml
+  direct-ollama-hardened.yaml
+  direct-openai-baseline.yaml
+  direct-openai-hardened.yaml
+  indirect-ollama-baseline.yaml
+  indirect-ollama-hardened.yaml
+  indirect-mock-baseline.yaml
+  indirect-mock-hardened.yaml
 
 results/
   raw/        # one JSONL file per run (full audit trail)
@@ -141,4 +159,3 @@ All experiments use synthetic data only. No real user data, production systems, 
 1. `planning/30-method-specs/attack-template-spec.md`
 2. `planning/30-method-specs/run-logging-schema-spec.md`
 3. Add `src/prompt_injection_eval/environments/indirect_env.py` for Slice 2
-

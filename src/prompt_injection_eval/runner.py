@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-"""CLI orchestrator for Slice 1 experiments.
+"""CLI orchestrator for Slice 1/2 experiments.
 
 The runner loads config/tasks, builds the active system prompt, executes benign
 and attacked trials in the direct environment, then writes JSONL/CSV artifacts.
@@ -18,6 +18,7 @@ from . import __project_name__
 from .config import RunConfig
 from .defences import baseline, prompt_hardening
 from .environments.direct_env import run_attacked, run_benign
+from .environments.indirect_env import run_attacked_indirect, run_benign_indirect
 from .logging_utils import write_jsonl, write_summary_csv
 from .tasks.loader import load_tasks
 
@@ -52,8 +53,13 @@ def main(config_path: Path) -> None:
 
     config = RunConfig.from_yaml(config_path)
     tasks = load_tasks(config.tasks_file)
+    if any(task.environment != config.environment for task in tasks):
+        raise ValueError(
+            f"Task file contains environment(s) that do not match config environment={config.environment!r}"
+        )
     system_prompt = _build_system_prompt(config)
     timestamp = datetime.now().strftime("%Y%m%dT%H%M%S")
+    experiment_id = f"{config.run_id}_{timestamp}"
 
     console.print(f"\n[bold green]{__project_name__}[/bold green]")
     console.print(f"[bold green]▶ Run: {config.run_id}[/bold green]")
@@ -64,12 +70,14 @@ def main(config_path: Path) -> None:
     console.print(f"  Attacks  : {len(ATTACK_TEMPLATES)} templates")
 
     records: list[dict] = []
+    benign_runner = run_benign if config.environment == "direct" else run_benign_indirect
+    attacked_runner = run_attacked if config.environment == "direct" else run_attacked_indirect
 
     # ── Benign baseline runs ───────────────────────────────────────────────
     if config.include_benign:
         console.print("\n[cyan]Benign runs...[/cyan]")
         for task in tasks:
-            record = run_benign(config, task, system_prompt)
+            record = benign_runner(config, task, system_prompt, experiment_id)
             records.append(record)
             icon = "[green]✓[/green]" if record["task_success"] else "[red]✗[/red]"
             console.print(f"  {icon} {task.task_id}")
@@ -79,7 +87,7 @@ def main(config_path: Path) -> None:
         console.print("\n[yellow]Attacked runs...[/yellow]")
         for task in tasks:
             for template in ATTACK_TEMPLATES:
-                record = run_attacked(config, task, template, system_prompt)
+                record = attacked_runner(config, task, template, system_prompt, experiment_id)
                 records.append(record)
                 t_icon = "[green]T✓[/green]" if record["task_success"] else "[red]T✗[/red]"
                 a_icon = "[red]A✓[/red]" if record["attack_success"] else "[green]A✗[/green]"
@@ -89,7 +97,7 @@ def main(config_path: Path) -> None:
                 )
 
     # ── Write outputs ──────────────────────────────────────────────────────
-    slug = f"{config.run_id}_{timestamp}"
+    slug = experiment_id
     raw_path = config.output_dir / "raw" / f"{slug}.jsonl"
     csv_path = config.output_dir / "summaries" / f"{slug}.csv"
     write_jsonl(records, raw_path)
@@ -126,4 +134,3 @@ def main(config_path: Path) -> None:
 
 if __name__ == "__main__":
     main()
-

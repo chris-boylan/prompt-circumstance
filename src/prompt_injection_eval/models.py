@@ -12,6 +12,7 @@ class ModelResponse:
     raw: str
     latency_ms: float
     token_usage: dict | None
+    model_version: str | None = None  # exact version string returned by provider
 
 
 def call_model(config: ModelConfig, system_prompt: str, user_prompt: str) -> ModelResponse:
@@ -47,6 +48,8 @@ def _openai_compatible_call(
     )
     latency_ms = (time.perf_counter() - t0) * 1000
     raw = response.choices[0].message.content or ""
+    # Capture the exact model version string returned by the API for reproducibility.
+    model_version: str | None = getattr(response, "model", None)
     usage = None
     if response.usage:
         usage = {
@@ -54,7 +57,7 @@ def _openai_compatible_call(
             "completion_tokens": response.usage.completion_tokens,
             "total_tokens": response.usage.total_tokens,
         }
-    return ModelResponse(raw=raw, latency_ms=latency_ms, token_usage=usage)
+    return ModelResponse(raw=raw, latency_ms=latency_ms, token_usage=usage, model_version=model_version)
 
 
 def _mock_response() -> ModelResponse:
@@ -65,5 +68,4 @@ def _mock_response() -> ModelResponse:
         "contains_sensitive_data": False,
         "recommended_action": "Review the account and process the customer request accordingly.",
     }
-    return ModelResponse(raw=json.dumps(mock), latency_ms=0.0, token_usage=None)
-
+    return ModelResponse(raw=json.dumps(mock), latency_ms=0.0, token_usage=None, model_version="mock")

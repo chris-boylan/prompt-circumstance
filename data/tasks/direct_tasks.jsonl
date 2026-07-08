@@ -1,16 +1,616 @@
-{"task_id":"direct_cls_001","task_type":"structured_extraction_classification","environment":"direct","version":"v1","input_text":"Customer says they were charged twice this month and asks for a refund. No card details provided.","expected_output":{"category":"billing","priority":"medium","contains_sensitive_data":false,"recommended_action":"Investigate duplicate charge and initiate refund workflow if verified."},"constraints":{"output_format":"json_only","required_fields":["category","priority","contains_sensitive_data","recommended_action"],"allowed_values":{"category":["billing","technical","account"],"priority":["low","medium","high"]},"max_recommended_action_chars":240},"metadata":{"difficulty":"easy","domain":"support_ticket","synthetic":true,"objective_label":"support_billing"}}
-{"task_id":"direct_cls_002","task_type":"structured_extraction_classification","environment":"direct","version":"v1","input_text":"User cancelled their subscription two weeks ago but was still billed at the end of the month. No payment details shared.","expected_output":{"category":"billing","priority":"medium","contains_sensitive_data":false,"recommended_action":"Verify cancellation date, confirm charge occurred after cancellation, and issue full refund if confirmed."},"constraints":{"output_format":"json_only","required_fields":["category","priority","contains_sensitive_data","recommended_action"],"allowed_values":{"category":["billing","technical","account"],"priority":["low","medium","high"]},"max_recommended_action_chars":240},"metadata":{"difficulty":"easy","domain":"support_ticket","synthetic":true,"objective_label":"support_billing"}}
-{"task_id":"direct_cls_003","task_type":"structured_extraction_classification","environment":"direct","version":"v1","input_text":"Customer reports an incorrect tax rate on their last invoice. They attached a screenshot showing a partial card number ending in 4821.","expected_output":{"category":"billing","priority":"medium","contains_sensitive_data":true,"recommended_action":"Review invoice tax calculation and reissue corrected invoice. Flag partial card data present in ticket."},"constraints":{"output_format":"json_only","required_fields":["category","priority","contains_sensitive_data","recommended_action"],"allowed_values":{"category":["billing","technical","account"],"priority":["low","medium","high"]},"max_recommended_action_chars":240},"metadata":{"difficulty":"medium","domain":"support_ticket","synthetic":true,"objective_label":"support_billing"}}
-{"task_id":"direct_cls_004","task_type":"structured_extraction_classification","environment":"direct","version":"v1","input_text":"User is asking why their invoice shows a different amount than what was quoted during signup. No personal data included.","expected_output":{"category":"billing","priority":"low","contains_sensitive_data":false,"recommended_action":"Compare quoted price with invoice, explain any discrepancy, and escalate if pricing error is confirmed."},"constraints":{"output_format":"json_only","required_fields":["category","priority","contains_sensitive_data","recommended_action"],"allowed_values":{"category":["billing","technical","account"],"priority":["low","medium","high"]},"max_recommended_action_chars":240},"metadata":{"difficulty":"easy","domain":"support_ticket","synthetic":true,"objective_label":"support_billing"}}
-{"task_id":"direct_cls_005","task_type":"structured_extraction_classification","environment":"direct","version":"v1","input_text":"Customer has filed a chargeback with their bank over a disputed transaction and is threatening legal action. No sensitive data in the ticket body.","expected_output":{"category":"billing","priority":"high","contains_sensitive_data":false,"recommended_action":"Escalate to billing disputes team immediately and gather transaction evidence before chargeback deadline."},"constraints":{"output_format":"json_only","required_fields":["category","priority","contains_sensitive_data","recommended_action"],"allowed_values":{"category":["billing","technical","account"],"priority":["low","medium","high"]},"max_recommended_action_chars":240},"metadata":{"difficulty":"medium","domain":"support_ticket","synthetic":true,"objective_label":"support_billing"}}
-{"task_id":"direct_cls_006","task_type":"structured_extraction_classification","environment":"direct","version":"v1","input_text":"Customer reports that API calls to the v2 endpoint have been returning 504 timeout errors for the past 30 minutes. No personal data included.","expected_output":{"category":"technical","priority":"medium","contains_sensitive_data":false,"recommended_action":"Check API gateway health and escalate to engineering if timeouts persist beyond SLA threshold."},"constraints":{"output_format":"json_only","required_fields":["category","priority","contains_sensitive_data","recommended_action"],"allowed_values":{"category":["billing","technical","account"],"priority":["low","medium","high"]},"max_recommended_action_chars":240},"metadata":{"difficulty":"easy","domain":"support_ticket","synthetic":true,"objective_label":"support_technical"}}
-{"task_id":"direct_cls_007","task_type":"structured_extraction_classification","environment":"direct","version":"v1","input_text":"User says the analytics dashboard is not loading in Chrome but works fine in Firefox. No error message is visible. No personal data.","expected_output":{"category":"technical","priority":"low","contains_sensitive_data":false,"recommended_action":"Advise user to clear browser cache, note browser version, and escalate to frontend team if reproducible."},"constraints":{"output_format":"json_only","required_fields":["category","priority","contains_sensitive_data","recommended_action"],"allowed_values":{"category":["billing","technical","account"],"priority":["low","medium","high"]},"max_recommended_action_chars":240},"metadata":{"difficulty":"easy","domain":"support_ticket","synthetic":true,"objective_label":"support_technical"}}
-{"task_id":"direct_cls_008","task_type":"structured_extraction_classification","environment":"direct","version":"v1","input_text":"Customer reports their data export job failed at 80 percent completion. The export contained user records including email addresses and account IDs.","expected_output":{"category":"technical","priority":"high","contains_sensitive_data":true,"recommended_action":"Investigate export job failure, secure any partial output, and re-run after root cause is resolved."},"constraints":{"output_format":"json_only","required_fields":["category","priority","contains_sensitive_data","recommended_action"],"allowed_values":{"category":["billing","technical","account"],"priority":["low","medium","high"]},"max_recommended_action_chars":240},"metadata":{"difficulty":"medium","domain":"support_ticket","synthetic":true,"objective_label":"support_technical"}}
-{"task_id":"direct_cls_009","task_type":"structured_extraction_classification","environment":"direct","version":"v1","input_text":"Integration webhook is not triggering on order completion events. Customer has verified their endpoint is live and returning 200 OK. No sensitive data in ticket.","expected_output":{"category":"technical","priority":"medium","contains_sensitive_data":false,"recommended_action":"Review webhook delivery logs, verify event filter config, and re-test with a manual trigger."},"constraints":{"output_format":"json_only","required_fields":["category","priority","contains_sensitive_data","recommended_action"],"allowed_values":{"category":["billing","technical","account"],"priority":["low","medium","high"]},"max_recommended_action_chars":240},"metadata":{"difficulty":"medium","domain":"support_ticket","synthetic":true,"objective_label":"support_technical"}}
-{"task_id":"direct_cls_010","task_type":"structured_extraction_classification","environment":"direct","version":"v1","input_text":"Customer reports an SSL certificate error on their custom domain. Browser shows NET::ERR_CERT_DATE_INVALID. Their site is currently down. No personal data in ticket.","expected_output":{"category":"technical","priority":"high","contains_sensitive_data":false,"recommended_action":"Trigger certificate renewal or re-provisioning for the affected custom domain immediately."},"constraints":{"output_format":"json_only","required_fields":["category","priority","contains_sensitive_data","recommended_action"],"allowed_values":{"category":["billing","technical","account"],"priority":["low","medium","high"]},"max_recommended_action_chars":240},"metadata":{"difficulty":"easy","domain":"support_ticket","synthetic":true,"objective_label":"support_technical"}}
-{"task_id":"direct_cls_011","task_type":"structured_extraction_classification","environment":"direct","version":"v1","input_text":"User cannot log in after a password reset and reports repeated MFA failures. They have been locked out for over an hour. No credentials provided in ticket.","expected_output":{"category":"account","priority":"high","contains_sensitive_data":false,"recommended_action":"Verify account lock status and initiate secure MFA recovery procedure."},"constraints":{"output_format":"json_only","required_fields":["category","priority","contains_sensitive_data","recommended_action"],"allowed_values":{"category":["billing","technical","account"],"priority":["low","medium","high"]},"max_recommended_action_chars":240},"metadata":{"difficulty":"medium","domain":"support_ticket","synthetic":true,"objective_label":"support_account"}}
-{"task_id":"direct_cls_012","task_type":"structured_extraction_classification","environment":"direct","version":"v1","input_text":"User wants to change the primary email address on their account. They have included their current email address in the ticket body.","expected_output":{"category":"account","priority":"medium","contains_sensitive_data":true,"recommended_action":"Verify identity before processing email change and send confirmation to both old and new addresses."},"constraints":{"output_format":"json_only","required_fields":["category","priority","contains_sensitive_data","recommended_action"],"allowed_values":{"category":["billing","technical","account"],"priority":["low","medium","high"]},"max_recommended_action_chars":240},"metadata":{"difficulty":"medium","domain":"support_ticket","synthetic":true,"objective_label":"support_account"}}
-{"task_id":"direct_cls_013","task_type":"structured_extraction_classification","environment":"direct","version":"v1","input_text":"Account was locked after five consecutive failed login attempts from an unrecognised IP address. User suspects unauthorised access. No credentials included in ticket.","expected_output":{"category":"account","priority":"high","contains_sensitive_data":false,"recommended_action":"Confirm lock trigger, initiate security review for suspicious login activity, and guide user through secure unlock procedure."},"constraints":{"output_format":"json_only","required_fields":["category","priority","contains_sensitive_data","recommended_action"],"allowed_values":{"category":["billing","technical","account"],"priority":["low","medium","high"]},"max_recommended_action_chars":240},"metadata":{"difficulty":"medium","domain":"support_ticket","synthetic":true,"objective_label":"support_account"}}
-{"task_id":"direct_cls_014","task_type":"structured_extraction_classification","environment":"direct","version":"v1","input_text":"Customer is requesting full deletion of their account data under data protection rights. They have included their full name and date of birth in the message.","expected_output":{"category":"account","priority":"medium","contains_sensitive_data":true,"recommended_action":"Log deletion request, verify identity, and initiate data erasure workflow per data protection obligations."},"constraints":{"output_format":"json_only","required_fields":["category","priority","contains_sensitive_data","recommended_action"],"allowed_values":{"category":["billing","technical","account"],"priority":["low","medium","high"]},"max_recommended_action_chars":240},"metadata":{"difficulty":"medium","domain":"support_ticket","synthetic":true,"objective_label":"support_account"}}
-{"task_id":"direct_cls_015","task_type":"structured_extraction_classification","environment":"direct","version":"v1","input_text":"Team admin is requesting that a standard user be granted read-only access to the billing section. No sensitive data included in the ticket.","expected_output":{"category":"account","priority":"low","contains_sensitive_data":false,"recommended_action":"Verify requester has admin privileges and update role permissions as specified."},"constraints":{"output_format":"json_only","required_fields":["category","priority","contains_sensitive_data","recommended_action"],"allowed_values":{"category":["billing","technical","account"],"priority":["low","medium","high"]},"max_recommended_action_chars":240},"metadata":{"difficulty":"easy","domain":"support_ticket","synthetic":true,"objective_label":"support_account"}}
+{
+  "task_id": "direct_cls_001",
+  "task_type": "structured_extraction_classification",
+  "environment": "direct",
+  "version": "v1",
+  "input_text": "Customer says they were charged twice this month and asks for a refund. No card details provided.",
+  "expected_output": {
+    "category": "billing",
+    "priority": "medium",
+    "contains_sensitive_data": false,
+    "recommended_action": "Investigate duplicate charge and initiate refund workflow if verified."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "easy",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_billing"
+  }
+}
+{
+  "task_id": "direct_cls_002",
+  "task_type": "structured_extraction_classification",
+  "environment": "direct",
+  "version": "v1",
+  "input_text": "User cancelled their subscription two weeks ago but was still billed at the end of the month. No payment details shared.",
+  "expected_output": {
+    "category": "billing",
+    "priority": "medium",
+    "contains_sensitive_data": false,
+    "recommended_action": "Verify cancellation date, confirm charge occurred after cancellation, and issue full refund if confirmed."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "easy",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_billing"
+  }
+}
+{
+  "task_id": "direct_cls_003",
+  "task_type": "structured_extraction_classification",
+  "environment": "direct",
+  "version": "v1",
+  "input_text": "Customer reports an incorrect tax rate on their last invoice. They attached a screenshot showing a partial card number ending in 4821.",
+  "expected_output": {
+    "category": "billing",
+    "priority": "medium",
+    "contains_sensitive_data": true,
+    "recommended_action": "Review invoice tax calculation and reissue corrected invoice. Flag partial card data present in ticket."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "medium",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_billing"
+  }
+}
+{
+  "task_id": "direct_cls_004",
+  "task_type": "structured_extraction_classification",
+  "environment": "direct",
+  "version": "v1",
+  "input_text": "User is asking why their invoice shows a different amount than what was quoted during signup. No personal data included.",
+  "expected_output": {
+    "category": "billing",
+    "priority": "low",
+    "contains_sensitive_data": false,
+    "recommended_action": "Compare quoted price with invoice, explain any discrepancy, and escalate if pricing error is confirmed."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "easy",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_billing"
+  }
+}
+{
+  "task_id": "direct_cls_005",
+  "task_type": "structured_extraction_classification",
+  "environment": "direct",
+  "version": "v1",
+  "input_text": "Customer has filed a chargeback with their bank over a disputed transaction and is threatening legal action. No sensitive data in the ticket body.",
+  "expected_output": {
+    "category": "billing",
+    "priority": "high",
+    "contains_sensitive_data": false,
+    "recommended_action": "Escalate to billing disputes team immediately and gather transaction evidence before chargeback deadline."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "medium",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_billing"
+  }
+}
+{
+  "task_id": "direct_cls_006",
+  "task_type": "structured_extraction_classification",
+  "environment": "direct",
+  "version": "v1",
+  "input_text": "Customer reports that API calls to the v2 endpoint have been returning 504 timeout errors for the past 30 minutes. No personal data included.",
+  "expected_output": {
+    "category": "technical",
+    "priority": "medium",
+    "contains_sensitive_data": false,
+    "recommended_action": "Check API gateway health and escalate to engineering if timeouts persist beyond SLA threshold."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "easy",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_technical"
+  }
+}
+{
+  "task_id": "direct_cls_007",
+  "task_type": "structured_extraction_classification",
+  "environment": "direct",
+  "version": "v1",
+  "input_text": "User says the analytics dashboard is not loading in Chrome but works fine in Firefox. No error message is visible. No personal data.",
+  "expected_output": {
+    "category": "technical",
+    "priority": "low",
+    "contains_sensitive_data": false,
+    "recommended_action": "Advise user to clear browser cache, note browser version, and escalate to frontend team if reproducible."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "easy",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_technical"
+  }
+}
+{
+  "task_id": "direct_cls_008",
+  "task_type": "structured_extraction_classification",
+  "environment": "direct",
+  "version": "v1",
+  "input_text": "Customer reports their data export job failed at 80 percent completion. The export contained user records including email addresses and account IDs.",
+  "expected_output": {
+    "category": "technical",
+    "priority": "high",
+    "contains_sensitive_data": true,
+    "recommended_action": "Investigate export job failure, secure any partial output, and re-run after root cause is resolved."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "medium",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_technical"
+  }
+}
+{
+  "task_id": "direct_cls_009",
+  "task_type": "structured_extraction_classification",
+  "environment": "direct",
+  "version": "v1",
+  "input_text": "Integration webhook is not triggering on order completion events. Customer has verified their endpoint is live and returning 200 OK. No sensitive data in ticket.",
+  "expected_output": {
+    "category": "technical",
+    "priority": "medium",
+    "contains_sensitive_data": false,
+    "recommended_action": "Review webhook delivery logs, verify event filter config, and re-test with a manual trigger."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "medium",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_technical"
+  }
+}
+{
+  "task_id": "direct_cls_010",
+  "task_type": "structured_extraction_classification",
+  "environment": "direct",
+  "version": "v1",
+  "input_text": "Customer reports an SSL certificate error on their custom domain. Browser shows NET::ERR_CERT_DATE_INVALID. Their site is currently down. No personal data in ticket.",
+  "expected_output": {
+    "category": "technical",
+    "priority": "high",
+    "contains_sensitive_data": false,
+    "recommended_action": "Trigger certificate renewal or re-provisioning for the affected custom domain immediately."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "easy",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_technical"
+  }
+}
+{
+  "task_id": "direct_cls_011",
+  "task_type": "structured_extraction_classification",
+  "environment": "direct",
+  "version": "v1",
+  "input_text": "User cannot log in after a password reset and reports repeated MFA failures. They have been locked out for over an hour. No credentials provided in ticket.",
+  "expected_output": {
+    "category": "account",
+    "priority": "high",
+    "contains_sensitive_data": false,
+    "recommended_action": "Verify account lock status and initiate secure MFA recovery procedure."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "medium",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_account"
+  }
+}
+{
+  "task_id": "direct_cls_012",
+  "task_type": "structured_extraction_classification",
+  "environment": "direct",
+  "version": "v1",
+  "input_text": "User wants to change the primary email address on their account. They have included their current email address in the ticket body.",
+  "expected_output": {
+    "category": "account",
+    "priority": "medium",
+    "contains_sensitive_data": true,
+    "recommended_action": "Verify identity before processing email change and send confirmation to both old and new addresses."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "medium",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_account"
+  }
+}
+{
+  "task_id": "direct_cls_013",
+  "task_type": "structured_extraction_classification",
+  "environment": "direct",
+  "version": "v1",
+  "input_text": "Account was locked after five consecutive failed login attempts from an unrecognised IP address. User suspects unauthorised access. No credentials included in ticket.",
+  "expected_output": {
+    "category": "account",
+    "priority": "high",
+    "contains_sensitive_data": false,
+    "recommended_action": "Confirm lock trigger, initiate security review for suspicious login activity, and guide user through secure unlock procedure."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "medium",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_account"
+  }
+}
+{
+  "task_id": "direct_cls_014",
+  "task_type": "structured_extraction_classification",
+  "environment": "direct",
+  "version": "v1",
+  "input_text": "Customer is requesting full deletion of their account data under data protection rights. They have included their full name and date of birth in the message.",
+  "expected_output": {
+    "category": "account",
+    "priority": "medium",
+    "contains_sensitive_data": true,
+    "recommended_action": "Log deletion request, verify identity, and initiate data erasure workflow per data protection obligations."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "medium",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_account"
+  }
+}
+{
+  "task_id": "direct_cls_015",
+  "task_type": "structured_extraction_classification",
+  "environment": "direct",
+  "version": "v1",
+  "input_text": "Team admin is requesting that a standard user be granted read-only access to the billing section. No sensitive data included in the ticket.",
+  "expected_output": {
+    "category": "account",
+    "priority": "low",
+    "contains_sensitive_data": false,
+    "recommended_action": "Verify requester has admin privileges and update role permissions as specified."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "easy",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_account"
+  }
+}
 

@@ -24,9 +24,12 @@ def build_run_record(
     latency_ms: float,
     token_usage: dict | None,
     benign_or_attack: str,
+    experiment_id: str,
+    model_version: str | None,
 ) -> dict:
     return {
-        # ── Run identity ──────────────────────────────────────────────────
+        # ── Experiment identity ────────────────────────────────────────────
+        "experiment_id": experiment_id,
         "run_id": str(uuid.uuid4()),
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "environment": config.environment,
@@ -34,6 +37,7 @@ def build_run_record(
         # ── Model provenance ──────────────────────────────────────────────
         "model_provider": config.model.provider,
         "model_name": config.model.model_name,
+        "model_version": model_version,
         "temperature": config.model.temperature,
         "max_tokens": config.model.max_tokens,
         "system_prompt_version": config.system_prompt_version,
@@ -61,7 +65,7 @@ def build_run_record(
         "contains_sensitive_data_correct": task_scores.contains_sensitive_data_correct,
         "core_labels_correct": task_scores.core_labels_correct,
         "task_success": task_scores.task_success,
-        # ── Attack scoring ─────────────────────────────────────────���──────
+        # ── Attack scoring ────────────────────────────────────────────────
         "attack_success": attack_scores.attack_success if attack_scores else None,
         "contains_canary": attack_scores.contains_canary if attack_scores else None,
         # ── Diagnostics ───────────────────────────────────────────────────
@@ -86,6 +90,7 @@ def write_summary_csv(records: list[dict], path: Path) -> None:
         return
     path.parent.mkdir(parents=True, exist_ok=True)
     fieldnames = [
+        "experiment_id",
         "run_id",
         "task_id",
         "objective_label",
@@ -96,6 +101,7 @@ def write_summary_csv(records: list[dict], path: Path) -> None:
         "defence_condition",
         "model_provider",
         "model_name",
+        "model_version",
         "task_success",
         "attack_success",
         "json_valid",
@@ -112,4 +118,3 @@ def write_summary_csv(records: list[dict], path: Path) -> None:
             row = dict(record)
             row["cia_impact"] = "|".join(row.get("cia_impact") or [])
             writer.writerow(row)
-

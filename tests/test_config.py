@@ -71,3 +71,24 @@ def test_from_yaml_invalid_defence_condition_raises(tmp_path: Path) -> None:
     with pytest.raises(ValidationError):
         RunConfig.from_yaml(config_file)
 
+
+def test_from_yaml_allows_indirect_environment(tmp_path: Path) -> None:
+    config_file = tmp_path / "indirect.yaml"
+    config_file.write_text(
+        "\n".join(
+            [
+                'run_id: "t"',
+                'defence_condition: "none"',
+                "model:",
+                '  provider: "mock"',
+                '  model_name: "mock"',
+                'environment: "indirect"',
+                'tasks_file: "data/tasks/indirect_tasks.jsonl"',
+                'output_dir: "results"',
+            ]
+        )
+    )
+
+    cfg = RunConfig.from_yaml(config_file)
+
+    assert cfg.environment == "indirect"
