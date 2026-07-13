@@ -66,7 +66,8 @@ Each task instance is one JSON object in `JSONL` format.
   "metadata": {
     "difficulty": "easy",
     "domain": "support_ticket",
-    "synthetic": true
+    "synthetic": true,
+    "carrier_type": "email"
   }
 }
 ```
@@ -81,6 +82,7 @@ Each task instance is one JSON object in `JSONL` format.
 - `expected_output`: reference target used for deterministic scoring
 - `constraints`: machine-checkable validity rules
 - `metadata`: analysis/support fields not used for core scoring
+- `metadata.carrier_type`: indirect carrier label for non-direct tasks (`email`, `markdown`, `kb_snippet`, `note`)
 
 ---
 
@@ -300,4 +302,3 @@ After this task schema spec, create:
 2. `run-logging-schema-spec.md`
 
 These complete the minimum specification set needed before coding the runner.
-

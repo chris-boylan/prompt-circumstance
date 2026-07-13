@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Literal
 
 import yaml
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ModelConfig(BaseModel):
@@ -27,14 +27,15 @@ class RunConfig(BaseModel):
     """Top-level run configuration loaded from a YAML file."""
 
     run_id: str
-    defence_condition: Literal["none", "prompt_hardening"]
+    defence_condition: Literal["none", "prompt_hardening", "boundary_spotlighting"]
     model: ModelConfig
     environment: Literal["direct", "indirect"] = "direct"
     tasks_file: Path
     output_dir: Path
     include_benign: bool = True
     include_attacked: bool = True
-    canary_token: str = "CANARY-XK7P9Q2M"
+    n_repeats: int = Field(default=1, ge=1)
+    canary_token: str = "CANARY-C00326765-SETU"
     system_prompt_version: str = "v1"
 
     @classmethod

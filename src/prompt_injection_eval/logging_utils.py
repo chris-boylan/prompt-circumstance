@@ -45,6 +45,7 @@ def build_run_record(
         "task_id": task.task_id,
         "task_type": task.task_type,
         "objective_label": task.metadata.objective_label,
+        "carrier_type": task.metadata.carrier_type,
         "benign_or_attack": benign_or_attack,
         # ── Attack identity ───────────────────────────────────────────────
         "attack_family": attack_template.family if attack_template else None,
@@ -92,8 +93,10 @@ def write_summary_csv(records: list[dict], path: Path) -> None:
     fieldnames = [
         "experiment_id",
         "run_id",
+        "repeat_index",
         "task_id",
         "objective_label",
+        "carrier_type",
         "benign_or_attack",
         "attack_family",
         "attack_template_id",

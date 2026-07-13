@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Literal
+
 from pydantic import BaseModel
 
 ALLOWED_CATEGORIES: list[str] = ["billing", "technical", "account"]
@@ -26,6 +28,7 @@ class TaskMetadata(BaseModel):
     synthetic: bool
     objective_label: str | None = None
     attack_family: str | None = None
+    carrier_type: Literal["email", "markdown", "kb_snippet", "note"] | None = None
     cia_impact: list[str] = []
 
 
@@ -38,4 +41,3 @@ class Task(BaseModel):
     expected_output: ExpectedOutput
     constraints: Constraints
     metadata: TaskMetadata
-

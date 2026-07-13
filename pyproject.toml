@@ -17,6 +17,7 @@ dependencies = [
 
 [project.scripts]
 pac-run = "prompt_injection_eval.runner:main"
+pac-aggregate = "prompt_injection_eval.aggregation:main"
 
 [project.optional-dependencies]
 test = [
@@ -25,4 +26,3 @@ test = [
 
 [tool.setuptools.packages.find]
 where = ["src"]
-
