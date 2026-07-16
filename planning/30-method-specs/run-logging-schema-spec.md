@@ -1,20 +1,20 @@
-# Prompt and Circumstance — Run Logging Schema Spec (Slice 1)
+# Prompt and Circumstance — Run Logging Schema Spec (Slice 1/2)
 
-Purpose: define the run record structure, artifact formats, file naming conventions, and logging rules for all trials produced by the Prompt and Circumstance evaluation harness, starting with the direct environment (Slice 1).
+Purpose: define the run record structure, artifact formats, experiment folder layout, and logging rules for all trials produced by the Prompt and Circumstance evaluation harness across direct and indirect environments.
 
 ---
 
 ## 1. Scope
 
 This spec defines the logging layer for:
-- all trial records produced by `pie-run` in the direct environment
+- all trial records produced by `pie-run` in the direct and indirect environments
 - both benign and attacked trial types
-- JSONL raw records and CSV summary artifacts
+- JSONL raw records, CSV summary artifacts, per-experiment `manifest.json`, and per-experiment `summaries/stats.json`
 
 This spec does not yet cover:
-- aggregated cross-experiment analysis files
+- tool-integrated or multi-turn environment records (reserved for Slice 3+)
 - visualisation or plot artifacts
-- indirect or tool-integrated environment records (reserved in extension hooks)
+- dissertation reporting tables/figures
 
 ---
 
@@ -63,8 +63,8 @@ Every trial record is a single JSON object. All fields are required unless noted
 | `experiment_id` | string | Groups all trials from one `pie-run` invocation |
 | `run_id` | string (UUID) | Unique per individual trial |
 | `timestamp` | string (ISO 8601 UTC) | Time of trial execution |
-| `environment` | string | `direct` in Slice 1 |
-| `defence_condition` | string | `none` or `prompt_hardening` |
+| `environment` | string | `direct` or `indirect` in Slice 1 |
+| `defence_condition` | string | `none`, `prompt_hardening`, or `boundary_spotlighting` |
 
 ### 4.2 Model provenance
 
@@ -72,10 +72,10 @@ Every trial record is a single JSON object. All fields are required unless noted
 |---|---|---|
 | `model_provider` | string | `openai`, `ollama`, or `mock` |
 | `model_name` | string | Exact model identifier from config (e.g. `gpt-4.1`, `llama3.1:8b`) |
-| `model_version` | string \| null | Exact version string returned by API or `ollama show`; null if unavailable |
+| `model_version` | string \| null | Exact version string returned by provider response; null if unavailable |
 | `temperature` | float | Must be 0.0 for all scored runs |
 | `max_tokens` | int | Token budget passed to the API |
-| `system_prompt_version` | string | Version tag of the active system prompt (e.g. `v1-baseline`, `v1-hardened`) |
+| `system_prompt_version` | string | Version tag of the active system prompt (e.g. `v1-baseline`, `v1-hardened`, `v3-indirect-boundary-spotlighting`) |
 
 **Why `model_version` matters:**
 Closed models can silently change behaviour between API calls even with the same `model_name`. Recording the exact version string returned by the API provides a reproducibility anchor for dissertation claims.
@@ -85,6 +85,7 @@ Closed models can silently change behaviour between API calls even with the same
 | Field | Type | Notes |
 |---|---|---|
 | `task_id` | string | Stable task identifier from the task corpus |
+| `repeat_index` | int | 1-based repeat number within one experiment invocation |
 | `task_type` | string | `structured_extraction_classification` in Slice 1 |
 | `objective_label` | string \| null | Task domain label (e.g. `support_billing`, `support_account`) |
 | `carrier_type` | string \| null | Indirect carrier label (e.g. `email`, `markdown`, `kb_snippet`, `note`) |
@@ -96,8 +97,8 @@ Null for benign trials.
 
 | Field | Type | Notes |
 |---|---|---|
-| `attack_family` | string \| null | Family label (e.g. `instruction_override`) |
-| `attack_template_id` | string \| null | Stable template identifier (e.g. `io_001`) |
+| `attack_family` | string \| null | Family label (e.g. `instruction_override`, `trust_boundary_bypass`) |
+| `attack_template_id` | string \| null | Stable template identifier (e.g. `io_001`, `tb_002`) |
 | `cia_impact` | list[string] \| empty list | All CIA labels: primary first, secondary following |
 
 ### 4.5 Inputs and outputs
@@ -203,18 +204,18 @@ Null/absent for benign trials.
 
 ## 6. Artifact formats
 
-### 6.1 Raw JSONL
+### 6.1 Raw JSONL (`runs.jsonl`)
 
 - One JSON object per line, no trailing commas
-- File path: `results/raw/{experiment_id}.jsonl`
-- Immutable once written — never overwrite
+- File path: `results/experiments/{experiment_id}/raw/runs.jsonl`
+- Immutable per experiment folder
 - Contains all fields including full `input_text` and `raw_model_output`
 - This is the authoritative audit trail
 
-### 6.2 Summary CSV
+### 6.2 Summary CSV (`runs.csv`)
 
 - One row per trial, strict subset of JSONL fields
-- File path: `results/summaries/{experiment_id}.csv`
+- File path: `results/experiments/{experiment_id}/summaries/runs.csv`
 - No derived or aggregated columns in Slice 1
 - Multi-value fields (e.g. `cia_impact`) are serialised as pipe-separated strings: `confidentiality|integrity`
 
@@ -222,30 +223,51 @@ Null/absent for benign trials.
 
 ```
 experiment_id, run_id, task_id, objective_label, carrier_type, benign_or_attack,
+repeat_index,
 attack_family, attack_template_id, cia_impact, defence_condition,
 model_provider, model_name, model_version, task_success, attack_success,
 json_valid, core_labels_correct, contains_canary,
 task_failure_reason, attack_failure_reason, latency_ms
 ```
 
+### 6.3 Experiment manifest (`manifest.json`)
+
+- File path: `results/experiments/{experiment_id}/manifest.json`
+- Captures run-level metadata and output paths:
+  - `experiment_id`, `created_at`
+  - config snapshot (`run_id`, `environment`, `defence_condition`, provider/model, `n_repeats`, task path, include flags)
+  - output artifact paths (`raw_jsonl`, `summary_csv`, `stats_json`)
+
+### 6.4 Per-experiment stats (`stats.json`)
+
+- File path: `results/experiments/{experiment_id}/summaries/stats.json`
+- Generated automatically after each run and refreshable via `pac-aggregate`
+- Contains:
+  - overall rates/counts
+  - per-repeat metrics (`repeat_stats`)
+  - repeat summary stats (mean/stdev/min/max)
+  - per-attack-family breakdown
+
 ---
 
-## 7. File naming convention
-
-Both artifacts use the same `experiment_id` slug:
+## 7. Experiment folder layout
 
 ```
 results/
-  raw/
-    {config_run_id}_{YYYYMMDDTHHMMSS}.jsonl
-  summaries/
-    {config_run_id}_{YYYYMMDDTHHMMSS}.csv
+  experiments/
+    {config_run_id}_{YYYYMMDDTHHMMSS}/
+      raw/runs.jsonl
+      summaries/runs.csv
+      summaries/stats.json
+      manifest.json
 ```
 
 Examples:
 ```
-results/raw/direct-ollama-baseline_20260707T105740.jsonl
-results/summaries/direct-ollama-baseline_20260707T105740.csv
+results/experiments/direct-ollama-baseline_20260707T105740/raw/runs.jsonl
+results/experiments/direct-ollama-baseline_20260707T105740/summaries/runs.csv
+results/experiments/direct-ollama-baseline_20260707T105740/summaries/stats.json
+results/experiments/direct-ollama-baseline_20260707T105740/manifest.json
 ```
 
 ---
@@ -275,16 +297,16 @@ If the API call itself fails (timeout, network error), log a record with:
 | Provider | How to capture `model_version` |
 |---|---|
 | OpenAI | Record `response.model` from the API response object |
-| Ollama | Run `ollama show {model_name}` before experiment; extract digest |
+| Ollama | Record `response.model` from the OpenAI-compatible API response object |
 | Mock | Set `model_version = "mock"` |
 
 The `model_version` field is optional in Slice 1 but should be populated wherever possible for reproducibility.
 
 ---
 
-## 10. Extension hooks (reserved for later slices)
+## 10. Reserved fields for later slices
 
-The following fields are reserved in the run record but unused in Slice 1. Set to null.
+The following fields are reserved for future tool-integrated or multi-turn logging. They are not emitted in current run records.
 
 ```json
 {
@@ -307,7 +329,7 @@ The following fields are reserved in the run record but unused in Slice 1. Set t
 ## 11. Acceptance criteria for this spec
 
 This spec is accepted when:
-- every trial record in `results/raw/` contains all required fields
+- every trial record in `results/experiments/{experiment_id}/raw/runs.jsonl` contains all required fields
 - `experiment_id` is present and consistently groups trials from the same invocation
 - `model_version` is logged wherever available
 - CSV summary contains no derived columns
@@ -317,18 +339,18 @@ This spec is accepted when:
 
 ---
 
-## 12. Implementation note — changes required
+## 12. Implementation status
 
-The current `logging_utils.py` does not yet emit `experiment_id` or `model_version`.
-These should be added in the next implementation step:
-
-- Pass `experiment_id` from `runner.py` into `build_run_record()`
-- Capture `model_version` from API response in `models.py` and pass it through
+Current code status:
+- `experiment_id` is generated per `pie-run` invocation in `runner.py` and propagated into every run record.
+- `model_version` is captured in `models.py` from provider responses and logged in run records.
+- `repeat_index` is attached per trial when `n_repeats > 1` (and present as `1` for single-repeat runs).
+- `manifest.json` and per-experiment `stats.json` are written automatically.
 
 ---
 
 ## 13. Next document
 
-After this spec is accepted:
-1. Implement `experiment_id` and `model_version` fields in `logging_utils.py` and `models.py`
-2. Begin Slice 2 environment spec: `indirect-environment-spec.md`
+After this spec sync:
+1. Create a dedicated Slice 3 tool-integrated environment spec.
+2. Define `tool_call_log` structure and deterministic tool-misuse scoring rules.

@@ -29,12 +29,13 @@ class RunConfig(BaseModel):
     run_id: str
     defence_condition: Literal["none", "prompt_hardening", "boundary_spotlighting"]
     model: ModelConfig
-    environment: Literal["direct", "indirect"] = "direct"
+    environment: Literal["direct", "indirect", "tool_integrated"] = "direct"
     tasks_file: Path
     output_dir: Path
     include_benign: bool = True
     include_attacked: bool = True
     n_repeats: int = Field(default=1, ge=1)
+    max_tool_calls: int = Field(default=3, ge=1)
     canary_token: str = "CANARY-C00326765-SETU"
     system_prompt_version: str = "v1"
 

@@ -117,6 +117,30 @@ def test_from_yaml_allows_boundary_spotlighting(tmp_path: Path) -> None:
     assert cfg.defence_condition == "boundary_spotlighting"
 
 
+def test_from_yaml_allows_tool_integrated_environment(tmp_path: Path) -> None:
+    config_file = tmp_path / "tool_integrated.yaml"
+    config_file.write_text(
+        "\n".join(
+            [
+                'run_id: "t"',
+                'defence_condition: "prompt_hardening"',
+                "model:",
+                '  provider: "mock"',
+                '  model_name: "mock"',
+                'environment: "tool_integrated"',
+                "max_tool_calls: 4",
+                'tasks_file: "data/tasks/tool_integrated_tasks.jsonl"',
+                'output_dir: "results"',
+            ]
+        )
+    )
+
+    cfg = RunConfig.from_yaml(config_file)
+
+    assert cfg.environment == "tool_integrated"
+    assert cfg.max_tool_calls == 4
+
+
 def test_from_yaml_invalid_n_repeats_raises(tmp_path: Path) -> None:
     config_file = tmp_path / "bad_repeats.yaml"
     config_file.write_text(
@@ -129,6 +153,28 @@ def test_from_yaml_invalid_n_repeats_raises(tmp_path: Path) -> None:
                 '  model_name: "mock"',
                 "n_repeats: 0",
                 'tasks_file: "data/tasks/direct_tasks.jsonl"',
+                'output_dir: "results"',
+            ]
+        )
+    )
+
+    with pytest.raises(ValidationError):
+        RunConfig.from_yaml(config_file)
+
+
+def test_from_yaml_invalid_max_tool_calls_raises(tmp_path: Path) -> None:
+    config_file = tmp_path / "bad_max_tool_calls.yaml"
+    config_file.write_text(
+        "\n".join(
+            [
+                'run_id: "t"',
+                'defence_condition: "none"',
+                "model:",
+                '  provider: "mock"',
+                '  model_name: "mock"',
+                'environment: "tool_integrated"',
+                "max_tool_calls: 0",
+                'tasks_file: "data/tasks/tool_integrated_tasks.jsonl"',
                 'output_dir: "results"',
             ]
         )

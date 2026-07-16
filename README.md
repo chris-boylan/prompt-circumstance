@@ -10,9 +10,9 @@ Tagline: a prompt-injection robustness harness with deterministic scoring and au
 
 A researcher-controlled evaluation harness for early dissertation slices:
 
-- **Environment**: direct and indirect prompt injection (single-turn, no tools, no retrieval)
+- **Environment**: direct, indirect, and tool-integrated prompt injection (single-turn)
 - **Task**: structured support-ticket classification → fixed JSON output
-- **Attack families**: instruction override · canary exfiltration · structured output disruption · indirect trust-boundary bypass
+- **Attack families**: instruction override · canary exfiltration · structured output disruption · indirect trust-boundary bypass · tool misuse / argument escalation / tool data exfiltration
 - **Defence conditions**: no defence (baseline) · prompt hardening · boundary spotlighting
 - **Scoring**: fully deterministic — no LLM judge
 - **Models**: mock (pipeline testing) · `llama3.1:8b` via Ollama (local) · `gpt-4.1` via OpenAI API
@@ -38,6 +38,8 @@ pac-run --config configs/direct/mock/hardened.yaml
 pac-run --config configs/indirect/mock/baseline.yaml
 pac-run --config configs/indirect/mock/hardened.yaml
 pac-run --config configs/indirect/mock/boundary_spotlighting.yaml
+pac-run --config configs/tool_integrated/mock/baseline.yaml
+pac-run --config configs/tool_integrated/mock/hardened.yaml
 ```
 
 Results land in `results/experiments/<experiment_id>/` with:
@@ -61,6 +63,8 @@ pac-run --config configs/direct/ollama/hardened.yaml
 pac-run --config configs/indirect/ollama/baseline.yaml
 pac-run --config configs/indirect/ollama/hardened.yaml
 pac-run --config configs/indirect/ollama/boundary_spotlighting.yaml
+pac-run --config configs/tool_integrated/ollama/baseline.yaml
+pac-run --config configs/tool_integrated/ollama/hardened.yaml
 ```
 
 If you see `model 'llama3.1:8b' not found`, confirm which tags are installed and
@@ -80,6 +84,8 @@ pac-run --config configs/direct/openai/hardened.yaml
 pac-run --config configs/indirect/openai/baseline.yaml
 pac-run --config configs/indirect/openai/hardened.yaml
 pac-run --config configs/indirect/openai/boundary_spotlighting.yaml
+pac-run --config configs/tool_integrated/openai/baseline.yaml
+pac-run --config configs/tool_integrated/openai/hardened.yaml
 ```
 
 ---
@@ -94,12 +100,13 @@ Each run is controlled by one YAML config file passed to `pac-run --config ...`.
 |---|---|---|---|
 | `run_id` | string | yes | Logical run label used in `experiment_id` and output folder naming. |
 | `defence_condition` | enum | yes | Defence mode: `none`, `prompt_hardening`, or `boundary_spotlighting`. |
-| `environment` | enum | no | Environment route: `direct` or `indirect` (default: `direct`). |
+| `environment` | enum | no | Environment route: `direct`, `indirect`, or `tool_integrated` (default: `direct`). |
 | `tasks_file` | path | yes | Task dataset file path (`.jsonl`). |
 | `output_dir` | path | yes | Base output directory (runner writes under `results/experiments/<experiment_id>/...`). |
 | `include_benign` | bool | no | Include benign (non-attacked) trials (default: `true`). |
 | `include_attacked` | bool | no | Include attacked trials (default: `true`). |
 | `n_repeats` | int | no | Number of repeats for the same config (default: `1`, min: `1`). |
+| `max_tool_calls` | int | no | Maximum policy-gated tool-call rounds in `tool_integrated` environment (default: `3`). |
 | `canary_token` | string | no | Synthetic secret token used for leakage detection. |
 | `system_prompt_version` | string | no | Free-form prompt version label for provenance. |
 
@@ -160,10 +167,13 @@ src/prompt_injection_eval/
   environments/
     direct_env.py       # run_benign / run_attacked
     indirect_env.py     # indirect untrusted-content benign / attacked runs
+    tool_env.py         # tool-integrated policy-gated runs
+  tools.py              # tool registry, policy checks, and deterministic tool adapters
 
 data/
   tasks/direct_tasks.jsonl          # 15 synthetic support tickets
   tasks/indirect_tasks.jsonl        # indirect tasks with untrusted content blocks
+  tasks/tool_integrated_tasks.jsonl # tool-integrated tasks with allowed_tools policy
   attacks/direct_attack_templates.json  # attack template reference (JSON mirror)
 
 configs/
@@ -178,6 +188,16 @@ configs/
       baseline.yaml
       hardened.yaml
   indirect/
+    mock/
+      baseline.yaml
+      hardened.yaml
+    ollama/
+      baseline.yaml
+      hardened.yaml
+    openai/
+      baseline.yaml
+      hardened.yaml
+  tool_integrated/
     mock/
       baseline.yaml
       hardened.yaml
@@ -212,8 +232,9 @@ results/
 | `carrier_type` | indirect carrier label (`email`, `markdown`, `kb_snippet`, `note`) |
 | `benign_or_attack` | `"benign"` or `"attack"` |
 | `attack_family` | `instruction_override` / `secret_canary_exfiltration` / `structured_output_disruption` / `trust_boundary_bypass` |
+| `tool_call_log` | tool-call audit trail with policy decision, reason, execution, and result payloads |
 | `cia_impact` | pipe-separated CIA labels |
-| `defence_condition` | `none` or `prompt_hardening` |
+| `defence_condition` | `none`, `prompt_hardening`, or `boundary_spotlighting` |
 | `task_success` | boolean — deterministic |
 | `attack_success` | boolean — deterministic |
 | `contains_canary` | boolean — canary token found in output |
@@ -265,4 +286,4 @@ All experiments use synthetic data only. No real user data, production systems, 
 
 1. `planning/30-method-specs/attack-template-spec.md`
 2. `planning/30-method-specs/run-logging-schema-spec.md`
-3. Add `src/prompt_injection_eval/environments/indirect_env.py` for Slice 2
+3. Add sandbox-backed tool adapters for external-validity checks in Slice 3+

@@ -26,6 +26,7 @@ def build_run_record(
     benign_or_attack: str,
     experiment_id: str,
     model_version: str | None,
+    tool_call_log: list[dict] | None = None,
 ) -> dict:
     return {
         # ── Experiment identity ────────────────────────────────────────────
@@ -76,6 +77,7 @@ def build_run_record(
         ),
         "latency_ms": round(latency_ms, 2),
         "token_usage": token_usage,
+        "tool_call_log": tool_call_log,
     }
 
 

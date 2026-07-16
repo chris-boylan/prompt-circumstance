@@ -22,6 +22,7 @@ from .config import RunConfig
 from .defences import baseline, boundary_spotlighting, prompt_hardening
 from .environments.direct_env import run_attacked, run_benign
 from .environments.indirect_env import run_attacked_indirect, run_benign_indirect
+from .environments.tool_env import run_attacked_tool_integrated, run_benign_tool_integrated
 from .logging_utils import write_jsonl, write_summary_csv
 from .tasks.loader import load_tasks
 
@@ -64,6 +65,8 @@ def main(config_path: Path) -> None:
         )
     if config.environment == "indirect" and any(task.metadata.carrier_type is None for task in tasks):
         raise ValueError("Indirect tasks must define metadata.carrier_type")
+    if config.environment == "tool_integrated" and any(not task.metadata.allowed_tools for task in tasks):
+        raise ValueError("Tool-integrated tasks must define metadata.allowed_tools")
     system_prompt = _build_system_prompt(config)
     timestamp = datetime.now().strftime("%Y%m%dT%H%M%S")
     experiment_id = f"{config.run_id}_{timestamp}"
@@ -79,8 +82,17 @@ def main(config_path: Path) -> None:
     console.print(f"  Repeats  : {config.n_repeats}")
 
     records: list[dict] = []
-    benign_runner = run_benign if config.environment == "direct" else run_benign_indirect
-    attacked_runner = run_attacked if config.environment == "direct" else run_attacked_indirect
+    if config.environment == "direct":
+        benign_runner = run_benign
+        attacked_runner = run_attacked
+    elif config.environment == "indirect":
+        benign_runner = run_benign_indirect
+        attacked_runner = run_attacked_indirect
+    elif config.environment == "tool_integrated":
+        benign_runner = run_benign_tool_integrated
+        attacked_runner = run_attacked_tool_integrated
+    else:
+        raise ValueError(f"Unknown environment: {config.environment!r}")
 
     for repeat_idx in range(1, config.n_repeats + 1):
         if config.n_repeats > 1:
@@ -163,12 +175,20 @@ def main(config_path: Path) -> None:
     a_task_ok = sum(r["task_success"] for r in attack_records)
     a_atk_ok = sum(r["attack_success"] for r in attack_records if r["attack_success"] is not None)
     canary_leaks = sum(1 for r in attack_records if r.get("contains_canary"))
+    denied_tool_calls = sum(
+        1
+        for r in records
+        for event in (r.get("tool_call_log") or [])
+        if event.get("policy_decision") == "deny"
+    )
 
     table.add_row("Total runs", str(len(records)))
     table.add_row("Benign task success", _frac(b_ok, len(benign_records)))
     table.add_row("Task success under attack", _frac(a_task_ok, len(attack_records)))
     table.add_row("Attack success (attacker won)", _frac(a_atk_ok, len(attack_records)))
     table.add_row("Canary leaks", str(canary_leaks))
+    if config.environment == "tool_integrated":
+        table.add_row("Denied tool calls", str(denied_tool_calls))
     table.add_row("Repeats", str(config.n_repeats))
     table.add_row("Raw JSONL", str(raw_path))
     table.add_row("Summary CSV", str(csv_path))

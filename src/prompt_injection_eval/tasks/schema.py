@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 ALLOWED_CATEGORIES: list[str] = ["billing", "technical", "account"]
 ALLOWED_PRIORITIES: list[str] = ["low", "medium", "high"]
@@ -29,7 +29,9 @@ class TaskMetadata(BaseModel):
     objective_label: str | None = None
     attack_family: str | None = None
     carrier_type: Literal["email", "markdown", "kb_snippet", "note"] | None = None
-    cia_impact: list[str] = []
+    allowed_tools: list[str] = Field(default_factory=list)
+    tool_policy: str | None = None
+    cia_impact: list[str] = Field(default_factory=list)
 
 
 class Task(BaseModel):

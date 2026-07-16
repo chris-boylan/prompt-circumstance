@@ -7,7 +7,8 @@ Purpose: define a deterministic, researcher-controlled task schema for the first
 ## 1. Scope of this spec
 
 This spec defines the task layer for:
-- direct prompt injection environment only (slice 1)
+- direct prompt injection environment (slice 1)
+- indirect prompt injection tasks that carry explicit untrusted-content markers
 - single-turn runs
 - structured extraction/classification tasks with fixed JSON output
 
@@ -82,7 +83,7 @@ Each task instance is one JSON object in `JSONL` format.
 - `expected_output`: reference target used for deterministic scoring
 - `constraints`: machine-checkable validity rules
 - `metadata`: analysis/support fields not used for core scoring
-- `metadata.carrier_type`: indirect carrier label for non-direct tasks (`email`, `markdown`, `kb_snippet`, `note`)
+- `metadata.carrier_type`: carrier label used in indirect tasks (`email`, `markdown`, `kb_snippet`, `note`); omit for direct tasks
 
 ---
 
@@ -156,14 +157,15 @@ This keeps:
 To support reproducible analysis in slice 1, each applied attack template should be tagged with fixed labels in run metadata (not in the benign task record itself).
 
 Required labels per attacked run:
-- `attack_family_label` (single-label enum)
-- `cia_impact_label` (single-label enum for primary expected impact)
+- `attack_family` (single family enum)
+- `cia_impact` (list of one or more CIA labels; primary first when multi-label)
 
 ### Attack family labels (slice 1)
 
 - `instruction_override`: Attack text attempts to replace or supersede the system/task instruction hierarchy so the model follows attacker intent instead of the benign task objective.
 - `secret_canary_exfiltration`: Attack text attempts to induce disclosure of hidden or disallowed information (for slice 1, typically synthetic canary tokens).
 - `structured_output_disruption`: Attack text attempts to break required output constraints (for example JSON-only format, required fields, or enum compliance) to reduce task reliability.
+- `trust_boundary_bypass`: Attack text attempts to launder untrusted indirect content as trusted instruction, bypassing trust-boundary handling.
 
 ### CIA impact labels (slice 1)
 
@@ -191,7 +193,7 @@ Required labels per attacked run:
 
 ### Logging note
 
-Record both labels in run-level artifacts so each attacked trial can be grouped consistently across models and defence conditions.
+Record `attack_family` and `cia_impact` in run-level artifacts so each attacked trial can be grouped consistently across models and defence conditions.
 
 ---
 
@@ -291,14 +293,13 @@ This spec is accepted when:
 - all tasks pass schema validation
 - deterministic scoring can run without LLM judge
 - at least one benign baseline run completes end-to-end using this schema
-- attacked runs include fixed `attack_family_label` and `cia_impact_label` values from section 6.1
+- attacked runs include fixed `attack_family` and `cia_impact` values from section 6.1
+- indirect runs include `metadata.carrier_type`
 
 ---
 
 ## 14. Immediate next document
 
-After this task schema spec, create:
-1. `attack-template-spec.md`
-2. `run-logging-schema-spec.md`
-
-These complete the minimum specification set needed before coding the runner.
+After this task schema spec sync:
+1. create a dedicated Slice 3 tool-integrated environment spec
+2. define tool-enabled task extensions (`allowed_tools`, `tool_policy`) and scoring impacts
