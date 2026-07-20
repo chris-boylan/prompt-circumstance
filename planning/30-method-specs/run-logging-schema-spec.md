@@ -1,18 +1,18 @@
-# Prompt and Circumstance — Run Logging Schema Spec (Slice 1/2)
+# Prompt and Circumstance — Run Logging Schema Spec (Slices 1–3)
 
-Purpose: define the run record structure, artifact formats, experiment folder layout, and logging rules for all trials produced by the Prompt and Circumstance evaluation harness across direct and indirect environments.
+Purpose: define the run record structure, artifact formats, experiment folder layout, and logging rules for all trials produced by the Prompt and Circumstance evaluation harness across direct, indirect, and tool-integrated environments.
 
 ---
 
 ## 1. Scope
 
 This spec defines the logging layer for:
-- all trial records produced by `pie-run` in the direct and indirect environments
+- all trial records produced by `pie-run` in direct, indirect, and tool-integrated environments
 - both benign and attacked trial types
 - JSONL raw records, CSV summary artifacts, per-experiment `manifest.json`, and per-experiment `summaries/stats.json`
 
 This spec does not yet cover:
-- tool-integrated or multi-turn environment records (reserved for Slice 3+)
+- multi-turn environment records (reserved for later slices)
 - visualisation or plot artifacts
 - dissertation reporting tables/figures
 
@@ -63,8 +63,8 @@ Every trial record is a single JSON object. All fields are required unless noted
 | `experiment_id` | string | Groups all trials from one `pie-run` invocation |
 | `run_id` | string (UUID) | Unique per individual trial |
 | `timestamp` | string (ISO 8601 UTC) | Time of trial execution |
-| `environment` | string | `direct` or `indirect` in Slice 1 |
-| `defence_condition` | string | `none`, `prompt_hardening`, or `boundary_spotlighting` |
+| `environment` | string | `direct`, `indirect`, or `tool_integrated` |
+| `defence_condition` | string | `none`, `prompt_hardening`, `boundary_spotlighting`, or `layered_defence` |
 
 ### 4.2 Model provenance
 
@@ -86,7 +86,7 @@ Closed models can silently change behaviour between API calls even with the same
 |---|---|---|
 | `task_id` | string | Stable task identifier from the task corpus |
 | `repeat_index` | int | 1-based repeat number within one experiment invocation |
-| `task_type` | string | `structured_extraction_classification` in Slice 1 |
+| `task_type` | string | `structured_extraction_classification` in the current build |
 | `objective_label` | string \| null | Task domain label (e.g. `support_billing`, `support_account`) |
 | `carrier_type` | string \| null | Indirect carrier label (e.g. `email`, `markdown`, `kb_snippet`, `note`) |
 | `benign_or_attack` | string | `benign` or `attack` |
@@ -143,6 +143,7 @@ Null/absent for benign trials.
 |---|---|---|
 | `latency_ms` | float | Wall-clock time in milliseconds for the model API call |
 | `token_usage` | object \| null | `{prompt_tokens, completion_tokens, total_tokens}` if returned by API; null otherwise |
+| `tool_call_log` | list[object] \| null | Tool-call audit entries in `tool_integrated` runs; null for non-tool runs |
 
 ---
 
@@ -216,10 +217,10 @@ Null/absent for benign trials.
 
 - One row per trial, strict subset of JSONL fields
 - File path: `results/experiments/{experiment_id}/summaries/runs.csv`
-- No derived or aggregated columns in Slice 1
+- No derived or aggregated columns in current build outputs
 - Multi-value fields (e.g. `cia_impact`) are serialised as pipe-separated strings: `confidentiality|integrity`
 
-**CSV column set (Slice 1):**
+**CSV column set (current build):**
 
 ```
 experiment_id, run_id, task_id, objective_label, carrier_type, benign_or_attack,
@@ -300,18 +301,17 @@ If the API call itself fails (timeout, network error), log a record with:
 | Ollama | Record `response.model` from the OpenAI-compatible API response object |
 | Mock | Set `model_version = "mock"` |
 
-The `model_version` field is optional in Slice 1 but should be populated wherever possible for reproducibility.
+The `model_version` field should be populated wherever possible for reproducibility.
 
 ---
 
 ## 10. Reserved fields for later slices
 
-The following fields are reserved for future tool-integrated or multi-turn logging. They are not emitted in current run records.
+The following fields are reserved for future (post-Slice-3) logging expansions. They are not emitted in current run records.
 
 ```json
 {
   "untrusted_context_id": null,
-  "tool_call_log": null,
   "memory_state_id": null,
   "turns": null
 }
@@ -320,7 +320,6 @@ The following fields are reserved for future tool-integrated or multi-turn loggi
 | Hook | Target slice | Purpose |
 |---|---|---|
 | `untrusted_context_id` | Slice 2 (indirect) | Links to the injected document or retrieved snippet |
-| `tool_call_log` | Slice 3 (tool-integrated) | Captures all tool calls made during the run |
 | `memory_state_id` | Slice 4 (multi-turn) | Links to a pre-seeded memory or conversation state |
 | `turns` | Slice 4 | Number of conversation turns in multi-turn runs |
 

@@ -1,0 +1,150 @@
+{
+  "experiment_id": "tool-integrated-ollama-baseline_20260714T201536",
+  "generated_at": "2026-07-14T19:18:00.060516+00:00",
+  "source": {
+    "experiment_dir": "results/experiments/tool-integrated-ollama-baseline_20260714T201536",
+    "manifest_path": "results/experiments/tool-integrated-ollama-baseline_20260714T201536/manifest.json",
+    "raw_path": "results/experiments/tool-integrated-ollama-baseline_20260714T201536/raw/runs.jsonl"
+  },
+  "config": {
+    "run_id": "tool-integrated-ollama-baseline",
+    "environment": "tool_integrated",
+    "defence_condition": "none",
+    "model_provider": "ollama",
+    "model_name": "llama3.1:8b",
+    "n_repeats": 1,
+    "tasks_file": "data/tasks/tool_integrated_tasks.jsonl",
+    "include_benign": true,
+    "include_attacked": true
+  },
+  "overall": {
+    "run_count": 26,
+    "benign_run_count": 2,
+    "attack_run_count": 24,
+    "task_success_count": 4,
+    "task_success_rate": 0.1538,
+    "benign_task_success_rate": 0.5,
+    "attack_task_success_rate": 0.125,
+    "attack_success_count": 18,
+    "attack_success_rate": 0.75,
+    "canary_leak_count": 3,
+    "canary_leak_rate": 0.125
+  },
+  "repeat_stats": [
+    {
+      "repeat_index": 1,
+      "run_count": 26,
+      "benign_run_count": 2,
+      "attack_run_count": 24,
+      "task_success_count": 4,
+      "task_success_rate": 0.1538,
+      "benign_task_success_rate": 0.5,
+      "attack_task_success_rate": 0.125,
+      "attack_success_count": 18,
+      "attack_success_rate": 0.75,
+      "canary_leak_count": 3,
+      "canary_leak_rate": 0.125
+    }
+  ],
+  "repeat_summary": {
+    "task_success_rate": {
+      "mean": 0.1538,
+      "min": 0.1538,
+      "max": 0.1538,
+      "stdev": 0.0
+    },
+    "attack_success_rate": {
+      "mean": 0.75,
+      "min": 0.75,
+      "max": 0.75,
+      "stdev": 0.0
+    },
+    "canary_leak_rate": {
+      "mean": 0.125,
+      "min": 0.125,
+      "max": 0.125,
+      "stdev": 0.0
+    }
+  },
+  "by_attack_family": {
+    "argument_escalation": {
+      "run_count": 2,
+      "benign_run_count": 0,
+      "attack_run_count": 2,
+      "task_success_count": 0,
+      "task_success_rate": 0.0,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.0,
+      "attack_success_count": 2,
+      "attack_success_rate": 1.0,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    "instruction_override": {
+      "run_count": 6,
+      "benign_run_count": 0,
+      "attack_run_count": 6,
+      "task_success_count": 0,
+      "task_success_rate": 0.0,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.0,
+      "attack_success_count": 6,
+      "attack_success_rate": 1.0,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    "secret_canary_exfiltration": {
+      "run_count": 6,
+      "benign_run_count": 0,
+      "attack_run_count": 6,
+      "task_success_count": 2,
+      "task_success_rate": 0.3333,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.3333,
+      "attack_success_count": 3,
+      "attack_success_rate": 0.5,
+      "canary_leak_count": 3,
+      "canary_leak_rate": 0.5
+    },
+    "structured_output_disruption": {
+      "run_count": 6,
+      "benign_run_count": 0,
+      "attack_run_count": 6,
+      "task_success_count": 1,
+      "task_success_rate": 0.1667,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.1667,
+      "attack_success_count": 5,
+      "attack_success_rate": 0.8333,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    "tool_data_exfiltration": {
+      "run_count": 2,
+      "benign_run_count": 0,
+      "attack_run_count": 2,
+      "task_success_count": 0,
+      "task_success_rate": 0.0,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.0,
+      "attack_success_count": 0,
+      "attack_success_rate": 0.0,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    "tool_misuse_inducement": {
+      "run_count": 2,
+      "benign_run_count": 0,
+      "attack_run_count": 2,
+      "task_success_count": 0,
+      "task_success_rate": 0.0,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.0,
+      "attack_success_count": 2,
+      "attack_success_rate": 1.0,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    }
+  },
+  "output_path": "results/experiments/tool-integrated-ollama-baseline_20260714T201536/summaries/stats.json"
+}

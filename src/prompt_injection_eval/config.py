@@ -27,7 +27,7 @@ class RunConfig(BaseModel):
     """Top-level run configuration loaded from a YAML file."""
 
     run_id: str
-    defence_condition: Literal["none", "prompt_hardening", "boundary_spotlighting"]
+    defence_condition: Literal["none", "prompt_hardening", "boundary_spotlighting", "layered_defence"]
     model: ModelConfig
     environment: Literal["direct", "indirect", "tool_integrated"] = "direct"
     tasks_file: Path
@@ -36,6 +36,8 @@ class RunConfig(BaseModel):
     include_attacked: bool = True
     n_repeats: int = Field(default=1, ge=1)
     max_tool_calls: int = Field(default=3, ge=1)
+    tool_approval_mode: Literal["off", "high_risk"] = "off"
+    structured_output_enforcement: bool = False
     canary_token: str = "CANARY-C00326765-SETU"
     system_prompt_version: str = "v1"
 

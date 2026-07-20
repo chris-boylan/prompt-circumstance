@@ -1,0 +1,15 @@
+run_id: "tool-integrated-openai-baseline"
+defence_condition: "none"
+model:
+  provider: "openai"
+  model_name: "gpt-4.1"
+  temperature: 0.0
+  max_tokens: 512
+environment: "tool_integrated"
+tasks_file: "data/tasks/tool_integrated_tasks.jsonl"
+output_dir: "results"
+include_benign: true
+include_attacked: true
+max_tool_calls: 3
+canary_token: "CANARY-C00326765-SETU"
+system_prompt_version: "v3-tool-baseline"

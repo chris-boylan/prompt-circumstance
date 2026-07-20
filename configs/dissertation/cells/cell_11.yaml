@@ -1,0 +1,12 @@
+run_id: dissertation-cell-11
+environment: indirect
+defence_condition: layered_defence
+model:
+  provider: openai
+  model_name: gpt-4o-mini
+tasks_file: data/tasks/indirect_tasks.jsonl
+output_dir: results/dissertation
+include_benign: true
+include_attacked: true
+n_repeats: 2
+canary_token: CANARY-C00326765-SETU

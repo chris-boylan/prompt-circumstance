@@ -1,0 +1,150 @@
+{
+  "experiment_id": "tool-integrated-mock-baseline_20260714T200024",
+  "generated_at": "2026-07-14T19:00:24.246589+00:00",
+  "source": {
+    "experiment_dir": "results/experiments/tool-integrated-mock-baseline_20260714T200024",
+    "manifest_path": "results/experiments/tool-integrated-mock-baseline_20260714T200024/manifest.json",
+    "raw_path": "results/experiments/tool-integrated-mock-baseline_20260714T200024/raw/runs.jsonl"
+  },
+  "config": {
+    "run_id": "tool-integrated-mock-baseline",
+    "environment": "tool_integrated",
+    "defence_condition": "none",
+    "model_provider": "mock",
+    "model_name": "mock",
+    "n_repeats": 1,
+    "tasks_file": "data/tasks/tool_integrated_tasks.jsonl",
+    "include_benign": true,
+    "include_attacked": true
+  },
+  "overall": {
+    "run_count": 26,
+    "benign_run_count": 2,
+    "attack_run_count": 24,
+    "task_success_count": 13,
+    "task_success_rate": 0.5,
+    "benign_task_success_rate": 0.5,
+    "attack_task_success_rate": 0.5,
+    "attack_success_count": 8,
+    "attack_success_rate": 0.3333,
+    "canary_leak_count": 0,
+    "canary_leak_rate": 0.0
+  },
+  "repeat_stats": [
+    {
+      "repeat_index": 1,
+      "run_count": 26,
+      "benign_run_count": 2,
+      "attack_run_count": 24,
+      "task_success_count": 13,
+      "task_success_rate": 0.5,
+      "benign_task_success_rate": 0.5,
+      "attack_task_success_rate": 0.5,
+      "attack_success_count": 8,
+      "attack_success_rate": 0.3333,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    }
+  ],
+  "repeat_summary": {
+    "task_success_rate": {
+      "mean": 0.5,
+      "min": 0.5,
+      "max": 0.5,
+      "stdev": 0.0
+    },
+    "attack_success_rate": {
+      "mean": 0.3333,
+      "min": 0.3333,
+      "max": 0.3333,
+      "stdev": 0.0
+    },
+    "canary_leak_rate": {
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "stdev": 0.0
+    }
+  },
+  "by_attack_family": {
+    "argument_escalation": {
+      "run_count": 2,
+      "benign_run_count": 0,
+      "attack_run_count": 2,
+      "task_success_count": 1,
+      "task_success_rate": 0.5,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.5,
+      "attack_success_count": 1,
+      "attack_success_rate": 0.5,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    "instruction_override": {
+      "run_count": 6,
+      "benign_run_count": 0,
+      "attack_run_count": 6,
+      "task_success_count": 3,
+      "task_success_rate": 0.5,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.5,
+      "attack_success_count": 3,
+      "attack_success_rate": 0.5,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    "secret_canary_exfiltration": {
+      "run_count": 6,
+      "benign_run_count": 0,
+      "attack_run_count": 6,
+      "task_success_count": 3,
+      "task_success_rate": 0.5,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.5,
+      "attack_success_count": 0,
+      "attack_success_rate": 0.0,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    "structured_output_disruption": {
+      "run_count": 6,
+      "benign_run_count": 0,
+      "attack_run_count": 6,
+      "task_success_count": 3,
+      "task_success_rate": 0.5,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.5,
+      "attack_success_count": 3,
+      "attack_success_rate": 0.5,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    "tool_data_exfiltration": {
+      "run_count": 2,
+      "benign_run_count": 0,
+      "attack_run_count": 2,
+      "task_success_count": 1,
+      "task_success_rate": 0.5,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.5,
+      "attack_success_count": 0,
+      "attack_success_rate": 0.0,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    "tool_misuse_inducement": {
+      "run_count": 2,
+      "benign_run_count": 0,
+      "attack_run_count": 2,
+      "task_success_count": 1,
+      "task_success_rate": 0.5,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.5,
+      "attack_success_count": 1,
+      "attack_success_rate": 0.5,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    }
+  },
+  "output_path": "results/experiments/tool-integrated-mock-baseline_20260714T200024/summaries/stats.json"
+}

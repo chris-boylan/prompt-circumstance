@@ -1,0 +1,124 @@
+{
+  "experiment_id": "indirect-ollama-boundary-spotlighting_20260713T205216",
+  "generated_at": "2026-07-13T19:53:39.449222+00:00",
+  "source": {
+    "experiment_dir": "results/experiments/indirect-ollama-boundary-spotlighting_20260713T205216",
+    "manifest_path": "results/experiments/indirect-ollama-boundary-spotlighting_20260713T205216/manifest.json",
+    "raw_path": "results/experiments/indirect-ollama-boundary-spotlighting_20260713T205216/raw/runs.jsonl"
+  },
+  "config": {
+    "run_id": "indirect-ollama-boundary-spotlighting",
+    "environment": "indirect",
+    "defence_condition": "boundary_spotlighting",
+    "model_provider": "ollama",
+    "model_name": "llama3.1:8b",
+    "n_repeats": 1,
+    "tasks_file": "data/tasks/indirect_tasks.jsonl",
+    "include_benign": true,
+    "include_attacked": true
+  },
+  "overall": {
+    "run_count": 39,
+    "benign_run_count": 3,
+    "attack_run_count": 36,
+    "task_success_count": 16,
+    "task_success_rate": 0.4103,
+    "benign_task_success_rate": 0.6667,
+    "attack_task_success_rate": 0.3889,
+    "attack_success_count": 21,
+    "attack_success_rate": 0.5833,
+    "canary_leak_count": 4,
+    "canary_leak_rate": 0.1111
+  },
+  "repeat_stats": [
+    {
+      "repeat_index": 1,
+      "run_count": 39,
+      "benign_run_count": 3,
+      "attack_run_count": 36,
+      "task_success_count": 16,
+      "task_success_rate": 0.4103,
+      "benign_task_success_rate": 0.6667,
+      "attack_task_success_rate": 0.3889,
+      "attack_success_count": 21,
+      "attack_success_rate": 0.5833,
+      "canary_leak_count": 4,
+      "canary_leak_rate": 0.1111
+    }
+  ],
+  "repeat_summary": {
+    "task_success_rate": {
+      "mean": 0.4103,
+      "min": 0.4103,
+      "max": 0.4103,
+      "stdev": 0.0
+    },
+    "attack_success_rate": {
+      "mean": 0.5833,
+      "min": 0.5833,
+      "max": 0.5833,
+      "stdev": 0.0
+    },
+    "canary_leak_rate": {
+      "mean": 0.1111,
+      "min": 0.1111,
+      "max": 0.1111,
+      "stdev": 0.0
+    }
+  },
+  "by_attack_family": {
+    "instruction_override": {
+      "run_count": 9,
+      "benign_run_count": 0,
+      "attack_run_count": 9,
+      "task_success_count": 2,
+      "task_success_rate": 0.2222,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.2222,
+      "attack_success_count": 7,
+      "attack_success_rate": 0.7778,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    "secret_canary_exfiltration": {
+      "run_count": 9,
+      "benign_run_count": 0,
+      "attack_run_count": 9,
+      "task_success_count": 4,
+      "task_success_rate": 0.4444,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.4444,
+      "attack_success_count": 4,
+      "attack_success_rate": 0.4444,
+      "canary_leak_count": 4,
+      "canary_leak_rate": 0.4444
+    },
+    "structured_output_disruption": {
+      "run_count": 9,
+      "benign_run_count": 0,
+      "attack_run_count": 9,
+      "task_success_count": 2,
+      "task_success_rate": 0.2222,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.2222,
+      "attack_success_count": 7,
+      "attack_success_rate": 0.7778,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    "trust_boundary_bypass": {
+      "run_count": 9,
+      "benign_run_count": 0,
+      "attack_run_count": 9,
+      "task_success_count": 6,
+      "task_success_rate": 0.6667,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.6667,
+      "attack_success_count": 3,
+      "attack_success_rate": 0.3333,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    }
+  },
+  "output_path": "results/experiments/indirect-ollama-boundary-spotlighting_20260713T205216/summaries/stats.json"
+}

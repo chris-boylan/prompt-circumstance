@@ -43,6 +43,8 @@ def _build_system_prompt(config: RunConfig) -> str:
         return prompt_hardening.apply(raw)
     if config.defence_condition == "boundary_spotlighting":
         return boundary_spotlighting.apply(raw)
+    if config.defence_condition == "layered_defence":
+        return boundary_spotlighting.apply(prompt_hardening.apply(raw))
     raise ValueError(f"Unknown defence_condition: {config.defence_condition!r}")
 
 
@@ -140,6 +142,8 @@ def main(config_path: Path) -> None:
         "model_provider": config.model.provider,
         "model_name": config.model.model_name,
         "n_repeats": config.n_repeats,
+        "tool_approval_mode": config.tool_approval_mode,
+        "structured_output_enforcement": config.structured_output_enforcement,
         "tasks_file": str(config.tasks_file),
         "task_count": len(tasks),
         "attack_template_count": len(attack_templates),
@@ -181,6 +185,12 @@ def main(config_path: Path) -> None:
         for event in (r.get("tool_call_log") or [])
         if event.get("policy_decision") == "deny"
     )
+    approval_required_tool_calls = sum(
+        1
+        for r in records
+        for event in (r.get("tool_call_log") or [])
+        if event.get("policy_decision") == "require_approval"
+    )
 
     table.add_row("Total runs", str(len(records)))
     table.add_row("Benign task success", _frac(b_ok, len(benign_records)))
@@ -189,6 +199,7 @@ def main(config_path: Path) -> None:
     table.add_row("Canary leaks", str(canary_leaks))
     if config.environment == "tool_integrated":
         table.add_row("Denied tool calls", str(denied_tool_calls))
+        table.add_row("Approval-required tool calls", str(approval_required_tool_calls))
     table.add_row("Repeats", str(config.n_repeats))
     table.add_row("Raw JSONL", str(raw_path))
     table.add_row("Summary CSV", str(csv_path))

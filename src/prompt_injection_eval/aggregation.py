@@ -40,6 +40,36 @@ def _series_summary(values: list[float]) -> dict[str, float | int | None]:
     return summary
 
 
+def _summarize_tool_policy(records: list[dict]) -> dict[str, int | float | None]:
+    tool_events = [
+        event
+        for record in records
+        for event in (record.get("tool_call_log") or [])
+    ]
+    denied = sum(1 for event in tool_events if event.get("policy_decision") == "deny")
+    approval_required = sum(
+        1 for event in tool_events if event.get("policy_decision") == "require_approval"
+    )
+    attack_records = [r for r in records if r.get("benign_or_attack") == "attack"]
+    approval_attack_runs = sum(
+        1
+        for record in attack_records
+        if any(
+            event.get("policy_decision") == "require_approval"
+            for event in (record.get("tool_call_log") or [])
+        )
+    )
+    return {
+        "tool_call_count": len(tool_events),
+        "denied_tool_calls": denied,
+        "denied_tool_call_rate": _rate(denied, len(tool_events)),
+        "approval_required_tool_calls": approval_required,
+        "approval_required_tool_call_rate": _rate(approval_required, len(tool_events)),
+        "approval_intervened_attack_runs": approval_attack_runs,
+        "approval_intervened_attack_run_rate": _rate(approval_attack_runs, len(attack_records)),
+    }
+
+
 def _summarize_records(records: list[dict]) -> dict:
     benign_records = [r for r in records if r["benign_or_attack"] == "benign"]
     attack_records = [r for r in records if r["benign_or_attack"] == "attack"]
@@ -92,6 +122,7 @@ def summarize_experiment(experiment_dir: Path) -> dict:
         )
 
     by_attack_family: dict[str, list[dict]] = defaultdict(list)
+    attack_records = [r for r in records if r.get("benign_or_attack") == "attack"]
     for record in records:
         if record.get("benign_or_attack") == "attack":
             family = record.get("attack_family") or "unknown"
@@ -117,6 +148,8 @@ def summarize_experiment(experiment_dir: Path) -> dict:
             "include_attacked": manifest["include_attacked"],
         },
         "overall": _summarize_records(records),
+        "tool_policy_overall": _summarize_tool_policy(records),
+        "tool_policy_attack_runs": _summarize_tool_policy(attack_records),
         "repeat_stats": repeat_stats,
         "repeat_summary": {
             "task_success_rate": _series_summary(
@@ -131,6 +164,10 @@ def summarize_experiment(experiment_dir: Path) -> dict:
         },
         "by_attack_family": {
             family: _summarize_records(family_records)
+            for family, family_records in sorted(by_attack_family.items())
+        },
+        "approval_interventions_by_attack_family": {
+            family: _summarize_tool_policy(family_records)
             for family, family_records in sorted(by_attack_family.items())
         },
     }

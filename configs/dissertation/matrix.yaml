@@ -1,0 +1,63 @@
+# Dissertation matrix definition — 27 cells
+# 3 environments × 3 defence conditions × 3 models, 2 repeats each
+
+matrix:
+  # Environment definitions
+  environments:
+    - id: direct
+      tasks_file: data/tasks/direct_tasks.jsonl
+    - id: indirect
+      tasks_file: data/tasks/indirect_tasks.jsonl
+    - id: tool_integrated
+      tasks_file: data/tasks/tool_integrated_tasks.jsonl
+
+  # Defence conditions
+  defence_conditions:
+    - id: none
+      label: "Baseline (no defence)"
+    - id: prompt_hardening
+      label: "Prompt hardening only"
+    - id: layered_defence
+      label: "Layered defence (hardening + spotlighting + tool policy)"
+
+  # Models
+  models:
+    - provider: mock
+      model_name: mock
+      label: "Mock (deterministic)"
+    - provider: ollama
+      model_name: "llama3.1:8b"
+      label: "Ollama (Llama 3.1 8B)"
+    - provider: openai
+      model_name: "gpt-4o-mini"
+      label: "OpenAI (GPT-4o mini)"
+
+  # Repeat policy
+  n_repeats: 2
+  include_benign: true
+  include_attacked: true
+
+  # Global config overrides (tool-integrated specific)
+  tool_integrated_overrides:
+    tool_approval_mode: "high_risk"
+    structured_output_enforcement: true
+    max_tool_calls: 3
+
+# Cell generation (cartesian product):
+# for env in [direct, indirect, tool_integrated]
+#   for defence in [none, prompt_hardening, layered_defence]
+#     for model in [mock, ollama, openai]
+#       create_cell(env, defence, model)
+#
+# Total: 3 × 3 × 3 = 27 cells
+# Each cell: 2 repeats
+# Each repeat: benign trials + attacked trials
+# Total approx runs: 27 × 2 × (3 tasks × (1 benign + 12 attacks)) = 27 × 2 × (3 × 13) ≈ 2,106 runs
+
+# Example generated cell layout (for reference):
+# Cell 00: direct + none + mock
+# Cell 01: direct + none + ollama
+# Cell 02: direct + none + openai
+# Cell 03: direct + prompt_hardening + mock
+# ...
+# Cell 26: tool_integrated + layered_defence + openai

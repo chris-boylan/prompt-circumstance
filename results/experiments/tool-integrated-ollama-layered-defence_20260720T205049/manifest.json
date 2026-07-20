@@ -1,0 +1,23 @@
+{
+  "experiment_id": "tool-integrated-ollama-layered-defence_20260720T205049",
+  "created_at": "2026-07-20T19:55:36.093340+00:00",
+  "config_path": "configs/tool_integrated/ollama/layered_defence_ab_off_off.yaml",
+  "run_id": "tool-integrated-ollama-layered-defence",
+  "environment": "tool_integrated",
+  "defence_condition": "layered_defence",
+  "model_provider": "ollama",
+  "model_name": "llama3.1:8b",
+  "n_repeats": 1,
+  "tool_approval_mode": "off",
+  "structured_output_enforcement": false,
+  "tasks_file": "data/tasks/tool_integrated_tasks.jsonl",
+  "task_count": 3,
+  "attack_template_count": 12,
+  "include_benign": true,
+  "include_attacked": true,
+  "output_paths": {
+    "raw_jsonl": "results/experiments/tool-integrated-ollama-layered-defence_20260720T205049/raw/runs.jsonl",
+    "summary_csv": "results/experiments/tool-integrated-ollama-layered-defence_20260720T205049/summaries/runs.csv",
+    "stats_json": "results/experiments/tool-integrated-ollama-layered-defence_20260720T205049/summaries/stats.json"
+  }
+}

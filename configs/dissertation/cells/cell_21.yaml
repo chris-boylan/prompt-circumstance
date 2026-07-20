@@ -1,0 +1,15 @@
+run_id: dissertation-cell-21
+environment: tool_integrated
+defence_condition: none
+model:
+  provider: mock
+  model_name: mock
+tasks_file: data/tasks/tool_integrated_tasks.jsonl
+output_dir: results/dissertation
+include_benign: true
+include_attacked: true
+n_repeats: 2
+canary_token: CANARY-C00326765-SETU
+tool_approval_mode: high_risk
+structured_output_enforcement: true
+max_tool_calls: 3

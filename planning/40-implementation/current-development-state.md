@@ -7,7 +7,7 @@ Purpose: persistent checkpoint so work can be resumed cleanly if chat/session co
 ## Last confirmed status
 
 - Direct, indirect, and tool-integrated environments are implemented.
-- Config structure now includes `configs/tool_integrated/{provider}/{baseline,hardened}.yaml` alongside direct/indirect provider configs.
+- Config structure now includes `configs/tool_integrated/{provider}/{baseline,hardened,layered_defence}.yaml` alongside direct/indirect provider configs.
 - Tool-integrated runtime now enforces a tool-call-first contract and logs policy outcomes in `tool_call_log`.
 - Current local test result: `31 passed`.
 - Latest runs include tool-integrated baseline/hardened comparisons across mock and Ollama.
@@ -64,7 +64,7 @@ Purpose: persistent checkpoint so work can be resumed cleanly if chat/session co
     - `tool_data_exfiltration`
 18. Tool-integrated fixtures/configs added:
     - `data/tasks/tool_integrated_tasks.jsonl`
-    - `configs/tool_integrated/{mock,ollama,openai}/{baseline,hardened}.yaml`
+    - `configs/tool_integrated/{mock,ollama,openai}/{baseline,hardened,layered_defence}.yaml`
 19. Logging schema extended with `tool_call_log` in run records.
 20. Test suite expanded for Slice 3 path coverage:
     - config validation
@@ -78,11 +78,12 @@ Purpose: persistent checkpoint so work can be resumed cleanly if chat/session co
 - Before continuing implementation, review:
   - `src/prompt_injection_eval/runner.py`
   - `src/prompt_injection_eval/logging_utils.py`
-  - `src/prompt_injection_eval/tasks/loader.py`
+  - `src/prompt_injection_eval/environments/tool_env.py`
+  - `src/prompt_injection_eval/tools.py`
   - `tests/test_runner_smoke_mock.py`
 - Then decide whether to:
-  - finalize/commit current Slice 1 refinements first, or
-  - begin Slice 2 (`indirect_env.py`) immediately.
+  - implement `require_approval` tool policy mode first, or
+  - implement structured output enforcement first.
 
 ---
 

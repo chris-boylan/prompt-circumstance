@@ -1,0 +1,194 @@
+{
+  "total_cells": 27,
+  "cells": [
+    {
+      "cell_id": 0,
+      "config_path": "configs/dissertation/cells/cell_00.yaml",
+      "environment": "direct",
+      "defence": "layered_defence",
+      "model": "mock/mock"
+    },
+    {
+      "cell_id": 1,
+      "config_path": "configs/dissertation/cells/cell_01.yaml",
+      "environment": "direct",
+      "defence": "layered_defence",
+      "model": "ollama/llama3.1:8b"
+    },
+    {
+      "cell_id": 2,
+      "config_path": "configs/dissertation/cells/cell_02.yaml",
+      "environment": "direct",
+      "defence": "layered_defence",
+      "model": "openai/gpt-4o-mini"
+    },
+    {
+      "cell_id": 3,
+      "config_path": "configs/dissertation/cells/cell_03.yaml",
+      "environment": "direct",
+      "defence": "none",
+      "model": "mock/mock"
+    },
+    {
+      "cell_id": 4,
+      "config_path": "configs/dissertation/cells/cell_04.yaml",
+      "environment": "direct",
+      "defence": "none",
+      "model": "ollama/llama3.1:8b"
+    },
+    {
+      "cell_id": 5,
+      "config_path": "configs/dissertation/cells/cell_05.yaml",
+      "environment": "direct",
+      "defence": "none",
+      "model": "openai/gpt-4o-mini"
+    },
+    {
+      "cell_id": 6,
+      "config_path": "configs/dissertation/cells/cell_06.yaml",
+      "environment": "direct",
+      "defence": "prompt_hardening",
+      "model": "mock/mock"
+    },
+    {
+      "cell_id": 7,
+      "config_path": "configs/dissertation/cells/cell_07.yaml",
+      "environment": "direct",
+      "defence": "prompt_hardening",
+      "model": "ollama/llama3.1:8b"
+    },
+    {
+      "cell_id": 8,
+      "config_path": "configs/dissertation/cells/cell_08.yaml",
+      "environment": "direct",
+      "defence": "prompt_hardening",
+      "model": "openai/gpt-4o-mini"
+    },
+    {
+      "cell_id": 9,
+      "config_path": "configs/dissertation/cells/cell_09.yaml",
+      "environment": "indirect",
+      "defence": "layered_defence",
+      "model": "mock/mock"
+    },
+    {
+      "cell_id": 10,
+      "config_path": "configs/dissertation/cells/cell_10.yaml",
+      "environment": "indirect",
+      "defence": "layered_defence",
+      "model": "ollama/llama3.1:8b"
+    },
+    {
+      "cell_id": 11,
+      "config_path": "configs/dissertation/cells/cell_11.yaml",
+      "environment": "indirect",
+      "defence": "layered_defence",
+      "model": "openai/gpt-4o-mini"
+    },
+    {
+      "cell_id": 12,
+      "config_path": "configs/dissertation/cells/cell_12.yaml",
+      "environment": "indirect",
+      "defence": "none",
+      "model": "mock/mock"
+    },
+    {
+      "cell_id": 13,
+      "config_path": "configs/dissertation/cells/cell_13.yaml",
+      "environment": "indirect",
+      "defence": "none",
+      "model": "ollama/llama3.1:8b"
+    },
+    {
+      "cell_id": 14,
+      "config_path": "configs/dissertation/cells/cell_14.yaml",
+      "environment": "indirect",
+      "defence": "none",
+      "model": "openai/gpt-4o-mini"
+    },
+    {
+      "cell_id": 15,
+      "config_path": "configs/dissertation/cells/cell_15.yaml",
+      "environment": "indirect",
+      "defence": "prompt_hardening",
+      "model": "mock/mock"
+    },
+    {
+      "cell_id": 16,
+      "config_path": "configs/dissertation/cells/cell_16.yaml",
+      "environment": "indirect",
+      "defence": "prompt_hardening",
+      "model": "ollama/llama3.1:8b"
+    },
+    {
+      "cell_id": 17,
+      "config_path": "configs/dissertation/cells/cell_17.yaml",
+      "environment": "indirect",
+      "defence": "prompt_hardening",
+      "model": "openai/gpt-4o-mini"
+    },
+    {
+      "cell_id": 18,
+      "config_path": "configs/dissertation/cells/cell_18.yaml",
+      "environment": "tool_integrated",
+      "defence": "layered_defence",
+      "model": "mock/mock"
+    },
+    {
+      "cell_id": 19,
+      "config_path": "configs/dissertation/cells/cell_19.yaml",
+      "environment": "tool_integrated",
+      "defence": "layered_defence",
+      "model": "ollama/llama3.1:8b"
+    },
+    {
+      "cell_id": 20,
+      "config_path": "configs/dissertation/cells/cell_20.yaml",
+      "environment": "tool_integrated",
+      "defence": "layered_defence",
+      "model": "openai/gpt-4o-mini"
+    },
+    {
+      "cell_id": 21,
+      "config_path": "configs/dissertation/cells/cell_21.yaml",
+      "environment": "tool_integrated",
+      "defence": "none",
+      "model": "mock/mock"
+    },
+    {
+      "cell_id": 22,
+      "config_path": "configs/dissertation/cells/cell_22.yaml",
+      "environment": "tool_integrated",
+      "defence": "none",
+      "model": "ollama/llama3.1:8b"
+    },
+    {
+      "cell_id": 23,
+      "config_path": "configs/dissertation/cells/cell_23.yaml",
+      "environment": "tool_integrated",
+      "defence": "none",
+      "model": "openai/gpt-4o-mini"
+    },
+    {
+      "cell_id": 24,
+      "config_path": "configs/dissertation/cells/cell_24.yaml",
+      "environment": "tool_integrated",
+      "defence": "prompt_hardening",
+      "model": "mock/mock"
+    },
+    {
+      "cell_id": 25,
+      "config_path": "configs/dissertation/cells/cell_25.yaml",
+      "environment": "tool_integrated",
+      "defence": "prompt_hardening",
+      "model": "ollama/llama3.1:8b"
+    },
+    {
+      "cell_id": 26,
+      "config_path": "configs/dissertation/cells/cell_26.yaml",
+      "environment": "tool_integrated",
+      "defence": "prompt_hardening",
+      "model": "openai/gpt-4o-mini"
+    }
+  ]
+}

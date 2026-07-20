@@ -1,0 +1,12 @@
+run_id: dissertation-cell-16
+environment: indirect
+defence_condition: prompt_hardening
+model:
+  provider: ollama
+  model_name: llama3.1:8b
+tasks_file: data/tasks/indirect_tasks.jsonl
+output_dir: results/dissertation
+include_benign: true
+include_attacked: true
+n_repeats: 2
+canary_token: CANARY-C00326765-SETU

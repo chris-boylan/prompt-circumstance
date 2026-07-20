@@ -1,0 +1,14 @@
+run_id: "indirect-mock-layered-defence"
+defence_condition: "layered_defence"
+model:
+  provider: "mock"
+  model_name: "mock"
+  temperature: 0.0
+  max_tokens: 512
+environment: "indirect"
+tasks_file: "data/tasks/indirect_tasks.jsonl"
+output_dir: "results"
+include_benign: true
+include_attacked: true
+canary_token: "CANARY-C00326765-SETU"
+system_prompt_version: "v3-indirect-layered-defence"
