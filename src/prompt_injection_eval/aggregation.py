@@ -70,6 +70,26 @@ def _summarize_tool_policy(records: list[dict]) -> dict[str, int | float | None]
     }
 
 
+def _attack_family_by_defence(records: list[dict]) -> dict[str, dict[str, dict]]:
+    family_groups: dict[str, dict[str, list[dict]]] = defaultdict(lambda: defaultdict(list))
+    for record in records:
+        if record.get("benign_or_attack") != "attack":
+            continue
+        family = record.get("attack_family") or "unknown"
+        defence = record.get("defence_condition") or "unknown"
+        family_groups[family][defence].append(record)
+
+    summary: dict[str, dict[str, dict]] = {}
+    for family, defence_map in sorted(family_groups.items()):
+        summary[family] = {}
+        for defence, defence_records in sorted(defence_map.items()):
+            summary[family][defence] = {
+                "summary": _summarize_records(defence_records),
+                "tool_policy": _summarize_tool_policy(defence_records),
+            }
+    return summary
+
+
 def _summarize_records(records: list[dict]) -> dict:
     benign_records = [r for r in records if r["benign_or_attack"] == "benign"]
     attack_records = [r for r in records if r["benign_or_attack"] == "attack"]
@@ -166,6 +186,7 @@ def summarize_experiment(experiment_dir: Path) -> dict:
             family: _summarize_records(family_records)
             for family, family_records in sorted(by_attack_family.items())
         },
+        "by_attack_family_and_defence": _attack_family_by_defence(records),
         "approval_interventions_by_attack_family": {
             family: _summarize_tool_policy(family_records)
             for family, family_records in sorted(by_attack_family.items())
@@ -214,9 +235,16 @@ def aggregate_results(results_dir: Path) -> dict:
         experiment_ids[key].append(manifest["experiment_id"])
 
     matrix_cells = []
+    by_attack_family: dict[str, list[dict]] = defaultdict(list)
+    by_attack_family_defence: dict[tuple[str, str], list[dict]] = defaultdict(list)
     for key in sorted(cells):
         model_provider, environment, defence_condition, model_name = key
         cell_records = cells[key]
+        for record in cell_records:
+            if record.get("benign_or_attack") == "attack":
+                family = record.get("attack_family") or "unknown"
+                by_attack_family[family].append(record)
+                by_attack_family_defence[(family, defence_condition)].append(record)
         matrix_cells.append(
             {
                 "model_provider": model_provider,
@@ -229,11 +257,24 @@ def aggregate_results(results_dir: Path) -> dict:
             }
         )
 
+    family_summary = {
+        family: _summarize_records(family_records)
+        for family, family_records in sorted(by_attack_family.items())
+    }
+    family_by_defence: dict[str, dict[str, dict]] = defaultdict(dict)
+    for (family, defence), family_records in sorted(by_attack_family_defence.items()):
+        family_by_defence[family][defence] = {
+            "summary": _summarize_records(family_records),
+            "tool_policy": _summarize_tool_policy(family_records),
+        }
+
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "results_dir": str(results_dir),
         "cell_count": len(matrix_cells),
         "cells": matrix_cells,
+        "by_attack_family": family_summary,
+        "by_attack_family_and_defence": dict(family_by_defence),
     }
 
 

@@ -1,6 +1,6 @@
 {
   "experiment_id": "dissertation-cell-00_20260720T210318",
-  "generated_at": "2026-07-20T20:03:18.712400+00:00",
+  "generated_at": "2026-07-21T20:09:09.431506+00:00",
   "source": {
     "experiment_dir": "results/dissertation/experiments/dissertation-cell-00_20260720T210318",
     "manifest_path": "results/dissertation/experiments/dissertation-cell-00_20260720T210318/manifest.json",
@@ -137,6 +137,86 @@
       "attack_success_rate": 0.8667,
       "canary_leak_count": 0,
       "canary_leak_rate": 0.0
+    }
+  },
+  "by_attack_family_and_defence": {
+    "instruction_override": {
+      "layered_defence": {
+        "summary": {
+          "run_count": 90,
+          "benign_run_count": 0,
+          "attack_run_count": 90,
+          "task_success_count": 12,
+          "task_success_rate": 0.1333,
+          "benign_task_success_rate": null,
+          "attack_task_success_rate": 0.1333,
+          "attack_success_count": 78,
+          "attack_success_rate": 0.8667,
+          "canary_leak_count": 0,
+          "canary_leak_rate": 0.0
+        },
+        "tool_policy": {
+          "tool_call_count": 0,
+          "denied_tool_calls": 0,
+          "denied_tool_call_rate": null,
+          "approval_required_tool_calls": 0,
+          "approval_required_tool_call_rate": null,
+          "approval_intervened_attack_runs": 0,
+          "approval_intervened_attack_run_rate": 0.0
+        }
+      }
+    },
+    "secret_canary_exfiltration": {
+      "layered_defence": {
+        "summary": {
+          "run_count": 90,
+          "benign_run_count": 0,
+          "attack_run_count": 90,
+          "task_success_count": 12,
+          "task_success_rate": 0.1333,
+          "benign_task_success_rate": null,
+          "attack_task_success_rate": 0.1333,
+          "attack_success_count": 0,
+          "attack_success_rate": 0.0,
+          "canary_leak_count": 0,
+          "canary_leak_rate": 0.0
+        },
+        "tool_policy": {
+          "tool_call_count": 0,
+          "denied_tool_calls": 0,
+          "denied_tool_call_rate": null,
+          "approval_required_tool_calls": 0,
+          "approval_required_tool_call_rate": null,
+          "approval_intervened_attack_runs": 0,
+          "approval_intervened_attack_run_rate": 0.0
+        }
+      }
+    },
+    "structured_output_disruption": {
+      "layered_defence": {
+        "summary": {
+          "run_count": 90,
+          "benign_run_count": 0,
+          "attack_run_count": 90,
+          "task_success_count": 12,
+          "task_success_rate": 0.1333,
+          "benign_task_success_rate": null,
+          "attack_task_success_rate": 0.1333,
+          "attack_success_count": 78,
+          "attack_success_rate": 0.8667,
+          "canary_leak_count": 0,
+          "canary_leak_rate": 0.0
+        },
+        "tool_policy": {
+          "tool_call_count": 0,
+          "denied_tool_calls": 0,
+          "denied_tool_call_rate": null,
+          "approval_required_tool_calls": 0,
+          "approval_required_tool_call_rate": null,
+          "approval_intervened_attack_runs": 0,
+          "approval_intervened_attack_run_rate": 0.0
+        }
+      }
     }
   },
   "approval_interventions_by_attack_family": {

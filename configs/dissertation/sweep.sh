@@ -25,16 +25,18 @@ failed=0
 skipped=0
 
 # Execute each cell
+progress=0
 for cell_id in $(jq -r '.cells[] | .cell_id' "$REGISTRY"); do
+    ((progress++))
     cell_config=$(jq -r ".cells[] | select(.cell_id == $cell_id) | .config_path" "$REGISTRY")
     environment=$(jq -r ".cells[] | select(.cell_id == $cell_id) | .environment" "$REGISTRY")
     defence=$(jq -r ".cells[] | select(.cell_id == $cell_id) | .defence" "$REGISTRY")
     model=$(jq -r ".cells[] | select(.cell_id == $cell_id) | .model" "$REGISTRY")
 
-    run_id="cell_${cell_id:02d}"
+    printf -v run_id "cell_%02d" "$cell_id"
     log_file="$LOG_DIR/${run_id}.log"
 
-    echo -n "[${cell_id}/${total_cells}] $environment / $defence / $model ... "
+    echo -n "[${progress}/${total_cells}] $environment / $defence / $model ... "
 
     if python3 -m prompt_injection_eval.runner --config "$cell_config" > "$log_file" 2>&1; then
         echo "✓"

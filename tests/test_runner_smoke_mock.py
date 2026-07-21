@@ -953,3 +953,8 @@ def test_aggregation_command_writes_global_matrix(tmp_path: Path, monkeypatch) -
     matrix = json.loads(matrix_file.read_text())
     assert matrix["cell_count"] == 1
     assert matrix["cells"][0]["summary"]["run_count"] == 2
+    assert "by_attack_family" in matrix
+    assert "instruction_override" in matrix["by_attack_family"]
+    assert "by_attack_family_and_defence" in matrix
+    assert "instruction_override" in matrix["by_attack_family_and_defence"]
+    assert "none" in matrix["by_attack_family_and_defence"]["instruction_override"]
