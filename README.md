@@ -321,10 +321,3 @@ The synthetic canary `CANARY-C00326765-SETU` is embedded in `system_baseline.txt
 All experiments use synthetic data only. No real user data, production systems, or third-party targets are used at any point. API usage complies with OpenAI's usage policy for academic research.
 
 ---
-
-## Current next steps
-
-1. Run the judge study against the real judge models (Claude, GPT-4o-mini) — the existing agreement report (κ = 0.84) is a mock-provider pipeline validation, not the final judge run.
-2. Extend aggregation/thesis tables with per-family utility/security trade-off reporting across the full 27-cell matrix (beyond the current overall and per-family summaries).
-3. Add at least one sandbox-backed tool adapter for external-validity checks.
-4. Write up findings from `results/dissertation/thesis_tables/` and `results/dissertation/aggregation/matrix.json` into the dissertation Findings/Discussion chapters.
