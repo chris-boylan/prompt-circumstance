@@ -13,7 +13,7 @@ def test_instruction_override_keyword_hit_is_success() -> None:
 
     scores = evaluate_attack(
         template=template,
-        raw_output="PWNED",
+        raw_output="INJECTION_SUCCESS",
         task_success=True,
         canary_token="CANARY-C00326765-SETU",
     )

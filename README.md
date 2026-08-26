@@ -1,6 +1,8 @@
-# Prompt and Circumstance — Current Harness (Slices 1–3)
+# Prompt and Circumstance — Dissertation Harness
 
-Dissertation harness for evaluating prompt injection attacks and defences under reproducible, deterministic conditions across direct, indirect, and tool-integrated environments.
+Dissertation harness for evaluating prompt injection attacks and defences under reproducible, deterministic conditions across direct, indirect, and tool-integrated environments. 
+
+The frozen 27-cell dissertation matrix has been executed end to end, validated against an independent LLM judge, and archived in a reproducibility bundle; thesis tables have been generated from the results.
 
 Tagline: a prompt-injection robustness harness with deterministic scoring and auditable run logs.
 
@@ -8,14 +10,14 @@ Tagline: a prompt-injection robustness harness with deterministic scoring and au
 
 ## What this is
 
-A researcher-controlled evaluation harness for early dissertation slices:
+A researcher-controlled evaluation harness, now covering the full dissertation experiment plus its supporting validation and reproducibility tooling:
 
 - **Environment**: direct, indirect, and tool-integrated prompt injection (single-turn)
 - **Task**: structured support-ticket classification → fixed JSON output
 - **Attack families**: instruction override · canary exfiltration · structured output disruption · indirect trust-boundary bypass · tool misuse / argument escalation / tool data exfiltration
-- **Defence conditions**: no defence (baseline) · prompt hardening · boundary spotlighting · layered defence
-- **Scoring**: fully deterministic — no LLM judge
-- **Models**: mock (pipeline testing) · `llama3.1:8b` via Ollama (local) · `gpt-4.1` via OpenAI API
+- **Defence conditions**: no defence (baseline) · prompt hardening · boundary spotlighting · layered defence (hardening + spotlighting + tool policy gating)
+- **Scoring**: primarily deterministic, rule-based (no LLM judge in the main measurement) — validated against an independent LLM-judge layer (see below)
+- **Models**: mock (pipeline testing) · `llama3.1:8b` via Ollama (local) · `gpt-4o-mini` via OpenAI API for the dissertation matrix (early slice configs under `configs/direct|indirect|tool_integrated/openai/` still reference `gpt-4.1` and predate the frozen matrix — update `model_name` if reusing them)
 
 ---
 
@@ -79,7 +81,7 @@ ollama list
 ollama pull llama3.1:8b
 ```
 
-### 4. Run with GPT-4.1 (after ethics confirmation)
+### 4. Run with GPT-4.1
 
 ```bash
 export OPENAI_API_KEY=sk-...
@@ -93,6 +95,40 @@ pac-run --config configs/tool_integrated/openai/baseline.yaml
 pac-run --config configs/tool_integrated/openai/hardened.yaml
 pac-run --config configs/tool_integrated/openai/layered_defence.yaml
 ```
+
+---
+
+## Dissertation matrix (frozen 27-cell factorial sweep)
+
+The full dissertation experiment is a 27-cell matrix (3 environments × 3 defence conditions × 3 model providers, 2 repeats per cell, ~2,100 runs), defined in `configs/dissertation/matrix.yaml` and generated into individual cell configs under `configs/dissertation/cells/`. The sweep has been executed in full — 27 result folders exist under `results/dissertation/experiments/`.
+
+```bash
+python3 scripts/dissertation/generate_dissertation_configs.py   # regenerate cell configs (one-time)
+bash configs/dissertation/validate.sh                            # quick mock smoke test
+bash configs/dissertation/sweep.sh 2>&1 | tee results/dissertation/sweep.log   # full sweep
+```
+
+See `configs/dissertation/README.md` for the full runbook, expected runtime, and output layout. Aggregated cross-cell metrics land in `results/dissertation/aggregation/matrix.json`.
+
+## Judge-study validation
+
+An independent LLM-judge layer validates the deterministic scorer rather than replacing it. Two judges (Claude and GPT-4o-mini) label a stratified sample of 50 attack records, and agreement with the deterministic scorer is measured with Cohen's kappa.
+
+```bash
+python3 scripts/dissertation/sample_for_judge_study.py ...   # stratified sampling (seed=42)
+python3 scripts/dissertation/llm_judge.py ...                 # LLM scoring
+python3 scripts/dissertation/judge_agreement.py ...           # Cohen's kappa report
+```
+
+A pipeline-validation run against the mock provider is recorded at `results/dissertation/judge_study/judge_agreement_report_mock.json` (κ = 0.84, substantial agreement). See `scripts/dissertation/JUDGE_STUDY_README.md` for the full protocol and acceptance criteria (κ ≥ 0.70).
+
+## Thesis tables
+
+`scripts/dissertation/generate_thesis_tables.py` produces analysis-ready tables (overall robustness, per-attack-family summary, family-by-defence breakdown) in Markdown, CSV, and LaTeX under `results/dissertation/thesis_tables/`.
+
+## Reproducibility bundle
+
+`reproducibility/` archives everything needed to re-run the frozen experiment: locked protocol (`PROTOCOL.md`), ethics notes (`ETHICS.md`), validity risk register (`THREATS_TO_VALIDITY.md`), environment guidance (`ENVIRONMENT.md`), a machine-readable snapshot (`MANIFEST.json`), frozen attack templates, task corpora, model descriptors, and pinned `requirements.txt`. Refresh with `python3 scripts/dissertation/build_reproducibility_bundle.py`. See `reproducibility/README.md`.
 
 ---
 
@@ -157,7 +193,8 @@ system_prompt_version: "v2-indirect-hardened"
 src/prompt_injection_eval/
   config.py             # RunConfig + ModelConfig (Pydantic)
   models.py             # provider adapter: openai / ollama / mock
-  runner.py             # CLI entrypoint (pie-run)
+  runner.py             # CLI entrypoint (pac-run)
+  aggregation.py        # per-experiment stats + global matrix aggregation (pac-aggregate)
   logging_utils.py      # build_run_record, write_jsonl, write_summary_csv
   prompts/
     system_baseline.txt # base system prompt with {{CANARY_TOKEN}} placeholder
@@ -176,55 +213,35 @@ src/prompt_injection_eval/
   environments/
     direct_env.py       # run_benign / run_attacked
     indirect_env.py     # indirect untrusted-content benign / attacked runs
-    tool_env.py         # tool-integrated policy-gated runs
+    tool_env.py          # tool-integrated policy-gated runs (approval mode, structured-output enforcement)
   tools.py              # tool registry, policy checks, and deterministic tool adapters
+
+scripts/dissertation/
+  generate_dissertation_configs.py  # builds 27 frozen cell configs from matrix.yaml
+  sample_for_judge_study.py         # stratified sampling for judge study
+  llm_judge.py                      # LLM-judge scoring (Claude / GPT-4o-mini)
+  judge_agreement.py                # Cohen's kappa agreement report
+  generate_thesis_tables.py         # thesis-ready tables (md/csv/tex)
+  build_reproducibility_bundle.py   # refreshes reproducibility/MANIFEST.json
 
 data/
   tasks/direct_tasks.jsonl          # 15 synthetic support tickets
   tasks/indirect_tasks.jsonl        # indirect tasks with untrusted content blocks
   tasks/tool_integrated_tasks.jsonl # tool-integrated tasks with allowed_tools policy
-  attacks/direct_attack_templates.json  # attack template reference (JSON mirror)
 
 configs/
-  direct/
-    mock/
-      baseline.yaml
-      hardened.yaml
-    ollama/
-      baseline.yaml
-      hardened.yaml
-    openai/
-      baseline.yaml
-      hardened.yaml
-  indirect/
-    mock/
-      baseline.yaml
-      hardened.yaml
-      boundary_spotlighting.yaml
-      layered_defence.yaml
-    ollama/
-      baseline.yaml
-      hardened.yaml
-      boundary_spotlighting.yaml
-      layered_defence.yaml
-    openai/
-      baseline.yaml
-      hardened.yaml
-      boundary_spotlighting.yaml
-      layered_defence.yaml
-  tool_integrated/
-    mock/
-      baseline.yaml
-      hardened.yaml
-      layered_defence.yaml
-    ollama/
-      baseline.yaml
-      hardened.yaml
-      layered_defence.yaml
-    openai/
-      baseline.yaml
-      hardened.yaml
-      layered_defence.yaml
+  direct/ ...                       # early per-slice smoke-test configs (mock/ollama/openai)
+  indirect/ ...
+  tool_integrated/ ...
+  dissertation/
+    matrix.yaml                     # frozen 27-cell matrix specification
+    cells/cell_00.yaml ... cell_26.yaml  # generated, frozen per-cell configs
+    cells/registry.json             # index used by sweep.sh
+    sweep.sh / validate.sh          # execution scripts
+
+reproducibility/                    # frozen protocol, ethics, validity register, manifest, pinned deps
+  attack_templates.json             # frozen full attack-template archive (all environments)
+  configs/attacks/direct_attack_templates.json  # direct-only reference mirror
 
 results/
   aggregation/
@@ -235,6 +252,11 @@ results/
       summaries/runs.csv  # analysis-ready summary
       summaries/stats.json # repeat-aware stats for this experiment
       manifest.json       # run metadata and config snapshot
+  dissertation/
+    experiments/<cell-id>_<timestamp>/  # per-cell results from the frozen 27-cell sweep
+    aggregation/matrix.json             # cross-cell aggregated metrics
+    judge_study/                        # sampled records, LLM-judge labels, agreement report
+    thesis_tables/                      # generated md/csv/tex tables
 ```
 
 ---
@@ -302,7 +324,7 @@ All experiments use synthetic data only. No real user data, production systems, 
 
 ## Current next steps
 
-1. Add `require_approval` policy mode for high-risk tool calls.
-2. Add structured output enforcement for tool-integrated runs.
-3. Extend aggregation with per-family utility/security tradeoff reporting.
-4. Add at least one sandbox-backed tool adapter for external-validity checks.
+1. Run the judge study against the real judge models (Claude, GPT-4o-mini) — the existing agreement report (κ = 0.84) is a mock-provider pipeline validation, not the final judge run.
+2. Extend aggregation/thesis tables with per-family utility/security trade-off reporting across the full 27-cell matrix (beyond the current overall and per-family summaries).
+3. Add at least one sandbox-backed tool adapter for external-validity checks.
+4. Write up findings from `results/dissertation/thesis_tables/` and `results/dissertation/aggregation/matrix.json` into the dissertation Findings/Discussion chapters.

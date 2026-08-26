@@ -34,6 +34,9 @@ python3 scripts/dissertation/sample_for_judge_study.py \
   --seed 42
 ```
 
+`mock`-provider records are excluded from the sampling pool by default (`--exclude-providers` defaults to
+`mock`), since that provider never reads the system prompt and cannot exercise judge behaviour meaningfully.
+
 **Output:** `judge_study_sample.jsonl` (50 attack records, stratified)
 
 ### 2. `llm_judge.py` — LLM scoring
@@ -45,14 +48,17 @@ Independently scores the 50 sampled records using Claude or OpenAI API.
 python3 scripts/dissertation/llm_judge.py \
   --sample results/dissertation/judge_study_sample.jsonl \
   --model-provider claude \
-  --model claude-3-5-sonnet-20241022 \
+  --model claude-sonnet-4-5-20250929 \
   --output results/dissertation/llm_judge_labels.json
 
 # Or OpenAI (requires OPENAI_API_KEY)
+# Uses gpt-4o, not gpt-4o-mini, because gpt-4o-mini is one of the three model providers
+# under test in the main matrix; judging its own outputs with itself would risk
+# self-preference bias (Panickssery et al., 2024).
 python3 scripts/dissertation/llm_judge.py \
   --sample results/dissertation/judge_study_sample.jsonl \
   --model-provider openai \
-  --model gpt-4o-mini \
+  --model gpt-4o \
   --output results/dissertation/llm_judge_labels.json
 ```
 
@@ -94,6 +100,8 @@ python3 scripts/dissertation/sample_for_judge_study.py \
   --stratify-by attack_family,defence_condition \
   --output results/dissertation/judge_study_sample.jsonl
 ```
+
+`mock`-provider records are excluded from the sampling pool by default.
 
 ### Step 3: LLM judge
 

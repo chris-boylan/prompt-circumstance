@@ -1,5 +1,5 @@
 # Dissertation matrix definition — 27 cells
-# 3 environments × 3 defence conditions × 3 models, 2 repeats each
+# 3 environments × 3 defence conditions × 3 models, 10 repeats each (non-mock)
 
 matrix:
   # Environment definitions
@@ -33,7 +33,7 @@ matrix:
       label: "OpenAI (GPT-4o mini)"
 
   # Repeat policy
-  n_repeats: 2
+  n_repeats: 10
   include_benign: true
   include_attacked: true
 

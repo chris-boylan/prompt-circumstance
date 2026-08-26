@@ -23,3 +23,4 @@ Use this structure to keep dissertation planning docs ordered by purpose and bui
 - `40-implementation/implementation-slice-04-plus.md`
 - `40-implementation/current-development-state.md`
 - `40-implementation/implementation-suite-maturity.md`
+- `40-implementation/judge-study-protocol.md`

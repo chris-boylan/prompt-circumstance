@@ -17,6 +17,7 @@ def sample_for_judge_study(
     stratify_by: list[str] | None = None,
     output_path: Path | None = None,
     seed: int = 42,
+    exclude_providers: list[str] | None = None,
 ) -> list[dict]:
     """Sample records stratified by attack family and defence condition.
 
@@ -26,6 +27,7 @@ def sample_for_judge_study(
         stratify_by: Fields to stratify on (default: ["attack_family", "defence_condition"])
         output_path: Path to write sampled records (optional)
         seed: Random seed for reproducibility
+        exclude_providers: Model providers to exclude from the sampling pool (e.g. ["mock"])
 
     Returns:
         List of sampled records
@@ -40,8 +42,11 @@ def sample_for_judge_study(
     with open(runs_jsonl_path) as f:
         for line in f:
             record = json.loads(line)
-            if record.get("benign_or_attack") == "attack":
-                attack_records.append(record)
+            if record.get("benign_or_attack") != "attack":
+                continue
+            if exclude_providers and record.get("model_provider") in exclude_providers:
+                continue
+            attack_records.append(record)
 
     # Group by stratification fields
     strata: dict[tuple, list[dict]] = defaultdict(list)
@@ -86,16 +91,29 @@ def main():
     )
     parser.add_argument("--output", type=Path, required=True, help="Output path for sample")
     parser.add_argument("--seed", type=int, default=42, help="Random seed")
+    parser.add_argument(
+        "--exclude-providers",
+        type=str,
+        default="mock",
+        help=(
+            "Comma-separated model providers to exclude from sampling pool. "
+            "Defaults to 'mock' (the deterministic stub provider), since it never reads the "
+            "system prompt and so cannot exercise judge behaviour meaningfully; pass an empty "
+            "string to disable exclusion."
+        ),
+    )
 
     args = parser.parse_args()
 
     stratify_by = args.stratify_by.split(",")
+    exclude_providers = [p for p in args.exclude_providers.split(",") if p] if args.exclude_providers else None
     sample_for_judge_study(
         runs_jsonl_path=args.runs_jsonl,
         sample_size=args.sample_size,
         stratify_by=stratify_by,
         output_path=args.output,
         seed=args.seed,
+        exclude_providers=exclude_providers,
     )
 
 

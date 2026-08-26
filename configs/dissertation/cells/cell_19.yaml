@@ -8,7 +8,7 @@ tasks_file: data/tasks/tool_integrated_tasks.jsonl
 output_dir: results/dissertation
 include_benign: true
 include_attacked: true
-n_repeats: 2
+n_repeats: 10
 canary_token: CANARY-C00326765-SETU
 tool_approval_mode: high_risk
 structured_output_enforcement: true

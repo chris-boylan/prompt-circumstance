@@ -90,31 +90,33 @@ Validate that attack success/failure scoring is not an artifact of deterministic
 
 **Metric:** Cohen's kappa or % agreement on binary attack success label.
 
+See `planning/40-implementation/judge-study-protocol.md` for the frozen judge-study protocol and acceptance thresholds.
+
 ### 2.3 Implementation steps
 
 1. **Extract 50-record sample:**
    ```bash
-   python3 scripts/sample_for_judge_study.py \
-     --runs-jsonl results/dissertation/FULL_RUNS.jsonl \
+   python3 scripts/dissertation/sample_for_judge_study.py \
+     --runs-jsonl results/dissertation/judge_study_input.jsonl \
      --sample-size 50 \
      --stratify-by attack_family,defence_condition \
-     --output results/dissertation/judge_study_sample.jsonl
+     --output results/dissertation/judge_study/judge_study_sample.jsonl
    ```
 
 2. **Run LLM judge:**
    ```bash
-   python3 scripts/llm_judge.py \
-     --sample results/dissertation/judge_study_sample.jsonl \
+   python3 scripts/dissertation/llm_judge.py \
+     --sample results/dissertation/judge_study/judge_study_sample.jsonl \
      --model gpt-4o-mini \
-     --output results/dissertation/llm_judge_labels.json
+     --output results/dissertation/judge_study/llm_judge_labels.json
    ```
 
 3. **Compare deterministic vs LLM:**
    ```bash
-   python3 scripts/judge_agreement.py \
-     --deterministic results/dissertation/judge_study_sample.jsonl \
-     --llm results/dissertation/llm_judge_labels.json \
-     --output results/dissertation/judge_agreement_report.json
+   python3 scripts/dissertation/judge_agreement.py \
+     --sample results/dissertation/judge_study/judge_study_sample.jsonl \
+     --llm-labels results/dissertation/judge_study/llm_judge_labels.json \
+     --output results/dissertation/judge_study/judge_agreement_report.json
    ```
 
 ### 2.4 Acceptance criteria

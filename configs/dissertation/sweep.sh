@@ -7,15 +7,20 @@ REGISTRY="configs/dissertation/cells/registry.json"
 LOG_DIR="results/dissertation/sweep_logs"
 mkdir -p "$LOG_DIR"
 
+echo "=== Regenerating cell configs from matrix.yaml ==="
+python3 scripts/dissertation/generate_dissertation_configs.py
+echo ""
+
 if [ ! -f "$REGISTRY" ]; then
-    echo "Error: registry not found at $REGISTRY"
+    echo "Error: registry not found at $REGISTRY after generation"
     exit 1
 fi
 
 total_cells=$(jq '.total_cells' "$REGISTRY")
+n_repeats=$(jq '.n_repeats' "$REGISTRY")
 echo "=== Dissertation Matrix Sweep ==="
 echo "Total cells: $total_cells"
-echo "Repeats per cell: 2"
+echo "Repeats per cell: $n_repeats"
 echo "Log directory: $LOG_DIR"
 echo ""
 

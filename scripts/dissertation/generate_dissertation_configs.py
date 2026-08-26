@@ -14,6 +14,7 @@ def generate_cell_config(
     defence_id: str,
     model_provider: str,
     model_name: str,
+    n_repeats: int,
     tool_overrides: dict | None = None,
 ) -> dict:
     """Generate a single cell config."""
@@ -29,7 +30,7 @@ def generate_cell_config(
         "output_dir": Path("results/dissertation"),
         "include_benign": True,
         "include_attacked": True,
-        "n_repeats": 2,
+        "n_repeats": n_repeats,
         "canary_token": "CANARY-C00326765-SETU",
     }
 
@@ -51,6 +52,9 @@ def main():
     defences = [d["id"] for d in matrix["defence_conditions"]]
     models = [(m["provider"], m["model_name"]) for m in matrix["models"]]
     tool_overrides = matrix.get("tool_integrated_overrides", {})
+    n_repeats = matrix.get("n_repeats", 2)
+    if not isinstance(n_repeats, int) or n_repeats < 1:
+        raise ValueError("matrix.n_repeats must be a positive integer")
 
     # Generate all 27 cells
     output_dir = Path("configs/dissertation/cells")
@@ -69,6 +73,7 @@ def main():
             defence_id=defence_id,
             model_provider=provider,
             model_name=model_name,
+            n_repeats=n_repeats,
             tool_overrides=tool_overrides if env_id == "tool_integrated" else None,
         )
 
@@ -97,6 +102,7 @@ def main():
         json.dump(
             {
                 "total_cells": len(cells),
+                "n_repeats": n_repeats,
                 "cells": cells,
             },
             f,

@@ -205,7 +205,17 @@ def write_experiment_summary(experiment_dir: Path) -> dict:
     return summary
 
 
-def aggregate_results(results_dir: Path) -> dict:
+def aggregate_results(
+    results_dir: Path, exclude_providers: tuple[str, ...] | list[str] = ()
+) -> dict:
+    """Aggregate per-experiment run records into a cross-cell matrix.
+
+    `exclude_providers` filters out cells for the named model providers (e.g. `mock`)
+    from the `by_attack_family` and `by_attack_family_and_defence` pooled aggregations,
+    since a provider with defence-insensitive responses would otherwise dilute the
+    apparent effect of a defence condition. Per-cell entries under `cells` are
+    unaffected, so provider-level comparisons in Table 1 remain unchanged.
+    """
     experiments_dir = results_dir / "experiments"
     if not experiments_dir.exists():
         return {
@@ -214,6 +224,7 @@ def aggregate_results(results_dir: Path) -> dict:
             "cells": [],
         }
 
+    excluded = set(exclude_providers)
     cells: dict[tuple[str, str, str, str], list[dict]] = defaultdict(list)
     experiment_ids: dict[tuple[str, str, str, str], list[str]] = defaultdict(list)
 
@@ -240,11 +251,12 @@ def aggregate_results(results_dir: Path) -> dict:
     for key in sorted(cells):
         model_provider, environment, defence_condition, model_name = key
         cell_records = cells[key]
-        for record in cell_records:
-            if record.get("benign_or_attack") == "attack":
-                family = record.get("attack_family") or "unknown"
-                by_attack_family[family].append(record)
-                by_attack_family_defence[(family, defence_condition)].append(record)
+        if model_provider not in excluded:
+            for record in cell_records:
+                if record.get("benign_or_attack") == "attack":
+                    family = record.get("attack_family") or "unknown"
+                    by_attack_family[family].append(record)
+                    by_attack_family_defence[(family, defence_condition)].append(record)
         matrix_cells.append(
             {
                 "model_provider": model_provider,
@@ -272,14 +284,17 @@ def aggregate_results(results_dir: Path) -> dict:
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "results_dir": str(results_dir),
         "cell_count": len(matrix_cells),
+        "excluded_providers": sorted(excluded),
         "cells": matrix_cells,
         "by_attack_family": family_summary,
         "by_attack_family_and_defence": dict(family_by_defence),
     }
 
 
-def write_results_matrix(results_dir: Path) -> dict:
-    matrix = aggregate_results(results_dir)
+def write_results_matrix(
+    results_dir: Path, exclude_providers: tuple[str, ...] | list[str] = ()
+) -> dict:
+    matrix = aggregate_results(results_dir, exclude_providers=exclude_providers)
     output_path = results_dir / "aggregation" / "matrix.json"
     output_path.parent.mkdir(parents=True, exist_ok=True)
     matrix["output_path"] = str(output_path)
@@ -288,14 +303,16 @@ def write_results_matrix(results_dir: Path) -> dict:
     return matrix
 
 
-def refresh_results(results_dir: Path) -> tuple[list[Path], dict]:
+def refresh_results(
+    results_dir: Path, exclude_providers: tuple[str, ...] | list[str] = ()
+) -> tuple[list[Path], dict]:
     experiments_dir = results_dir / "experiments"
     refreshed: list[Path] = []
     if experiments_dir.exists():
         for experiment_dir in sorted(p for p in experiments_dir.iterdir() if p.is_dir()):
             write_experiment_summary(experiment_dir)
             refreshed.append(experiment_dir)
-    matrix = write_results_matrix(results_dir)
+    matrix = write_results_matrix(results_dir, exclude_providers=exclude_providers)
     return refreshed, matrix
 
 console = Console()
@@ -309,8 +326,16 @@ console = Console()
     show_default=True,
     help="Base results directory containing experiment folders.",
 )
-def main(results_dir: Path) -> None:
-    refreshed, matrix = refresh_results(results_dir)
+@click.option(
+    "--exclude-provider",
+    "exclude_providers",
+    multiple=True,
+    default=(),
+    help="Model provider to exclude from by_attack_family aggregations (e.g. mock). "
+    "Repeatable. Does not affect per-cell entries in the matrix.",
+)
+def main(results_dir: Path, exclude_providers: tuple[str, ...]) -> None:
+    refreshed, matrix = refresh_results(results_dir, exclude_providers=exclude_providers)
 
     table = Table(title="Aggregation Summary", show_lines=True)
     table.add_column("Metric", style="bold")
@@ -318,6 +343,8 @@ def main(results_dir: Path) -> None:
     table.add_row("Results dir", str(results_dir))
     table.add_row("Refreshed experiments", str(len(refreshed)))
     table.add_row("Cells", str(matrix["cell_count"]))
+    if matrix.get("excluded_providers"):
+        table.add_row("Excluded providers", ", ".join(matrix["excluded_providers"]))
     table.add_row("Matrix", matrix["output_path"])
     console.print(table)
 
