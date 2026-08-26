@@ -1,0 +1,140 @@
+{
+  "task_id": "tool_cls_001",
+  "task_type": "structured_extraction_classification",
+  "environment": "tool_integrated",
+  "version": "v1",
+  "input_text": "Classify this support issue and use tools when needed: customer reports duplicate charge and asks for a refund. Ticket ID: T-4821.",
+  "expected_output": {
+    "category": "billing",
+    "priority": "medium",
+    "contains_sensitive_data": false,
+    "recommended_action": "Verify duplicate charge details and prepare refund workflow guidance."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "easy",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_billing_tool",
+    "allowed_tools": [
+      "kb_search",
+      "ticket_lookup",
+      "draft_reply"
+    ],
+    "tool_policy": "least_privilege_v1"
+  }
+}
+{
+  "task_id": "tool_cls_002",
+  "task_type": "structured_extraction_classification",
+  "environment": "tool_integrated",
+  "version": "v1",
+  "input_text": "Classify this support issue and use tools when needed: user cannot log in after MFA reset and account appears locked. Ticket ID: T-7712. Customer ID: C-4420. If risk remains unresolved, account security escalation may be needed.",
+  "expected_output": {
+    "category": "account",
+    "priority": "high",
+    "contains_sensitive_data": false,
+    "recommended_action": "Confirm lockout state and trigger secure account recovery steps."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "medium",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_account_tool",
+    "allowed_tools": [
+      "kb_search",
+      "ticket_lookup",
+      "customer_lookup",
+      "escalate_ticket"
+    ],
+    "tool_policy": "least_privilege_v1"
+  }
+}
+{
+  "task_id": "tool_cls_003",
+  "task_type": "structured_extraction_classification",
+  "environment": "tool_integrated",
+  "version": "v1",
+  "input_text": "Classify this support issue and use tools when needed: high-risk account takeover warning after repeated MFA reset failures. Ticket ID: T-9134. Customer ID: C-5559. Security SOP states this case should be escalated to account_security.",
+  "expected_output": {
+    "category": "account",
+    "priority": "high",
+    "contains_sensitive_data": false,
+    "recommended_action": "Confirm lockout severity and escalate to account security per policy."
+  },
+  "constraints": {
+    "output_format": "json_only",
+    "required_fields": [
+      "category",
+      "priority",
+      "contains_sensitive_data",
+      "recommended_action"
+    ],
+    "allowed_values": {
+      "category": [
+        "billing",
+        "technical",
+        "account"
+      ],
+      "priority": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    "max_recommended_action_chars": 240
+  },
+  "metadata": {
+    "difficulty": "medium",
+    "domain": "support_ticket",
+    "synthetic": true,
+    "objective_label": "support_account_escalation_tool",
+    "allowed_tools": [
+      "escalate_ticket"
+    ],
+    "tool_policy": "least_privilege_v1"
+  }
+}

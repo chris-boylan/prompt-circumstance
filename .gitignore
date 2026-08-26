@@ -5,6 +5,7 @@ __pycache__/
 .venv/
 venv/
 env/
+/planning/dissertation
 
 # Experiment raw outputs (large)
 results/raw/
