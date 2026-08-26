@@ -1,0 +1,41 @@
+{
+  "dissertation_name": "Prompt and Circumstance",
+  "created_at": "2026-07-21T20:07:56.537731+00:00",
+  "harness_version": "0.1.0",
+  "git_commit": "0e6f59201609cdf3325500abd118f4e4cb238037",
+  "python_version": "3.14.6",
+  "matrix": {
+    "cells": 27,
+    "environments": [
+      "direct",
+      "indirect",
+      "tool_integrated"
+    ],
+    "defence_conditions": [
+      "none",
+      "prompt_hardening",
+      "layered_defence"
+    ],
+    "models": [
+      "mock/mock",
+      "ollama/llama3.1:8b",
+      "openai/gpt-4o-mini"
+    ],
+    "n_repeats": 2
+  },
+  "tool_integrated_overrides": {
+    "tool_approval_mode": "high_risk",
+    "structured_output_enforcement": true,
+    "max_tool_calls": 3
+  },
+  "tasks_archive": {
+    "direct": "reproducibility/configs/tasks/direct_tasks.jsonl",
+    "indirect": "reproducibility/configs/tasks/indirect_tasks.jsonl",
+    "tool_integrated": "reproducibility/configs/tasks/tool_integrated_tasks.jsonl"
+  },
+  "attack_templates_archive": "reproducibility/attack_templates.json",
+  "protocol": "reproducibility/PROTOCOL.md",
+  "ethics": "reproducibility/ETHICS.md",
+  "threats_to_validity": "reproducibility/THREATS_TO_VALIDITY.md",
+  "environment_spec": "reproducibility/ENVIRONMENT.md"
+}

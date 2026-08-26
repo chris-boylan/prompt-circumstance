@@ -1,0 +1,396 @@
+{
+  "experiment_id": "dissertation-cell-24_20260811T215401",
+  "generated_at": "2026-08-13T13:26:48.517307+00:00",
+  "source": {
+    "experiment_dir": "results/dissertation/experiments/dissertation-cell-24_20260811T215401",
+    "manifest_path": "results/dissertation/experiments/dissertation-cell-24_20260811T215401/manifest.json",
+    "raw_path": "results/dissertation/experiments/dissertation-cell-24_20260811T215401/raw/runs.jsonl"
+  },
+  "config": {
+    "run_id": "dissertation-cell-24",
+    "environment": "tool_integrated",
+    "defence_condition": "prompt_hardening",
+    "model_provider": "mock",
+    "model_name": "mock",
+    "n_repeats": 2,
+    "tasks_file": "data/tasks/tool_integrated_tasks.jsonl",
+    "include_benign": true,
+    "include_attacked": true
+  },
+  "overall": {
+    "run_count": 78,
+    "benign_run_count": 6,
+    "attack_run_count": 72,
+    "task_success_count": 26,
+    "task_success_rate": 0.3333,
+    "benign_task_success_rate": 0.3333,
+    "attack_task_success_rate": 0.3333,
+    "attack_success_count": 32,
+    "attack_success_rate": 0.4444,
+    "canary_leak_count": 0,
+    "canary_leak_rate": 0.0
+  },
+  "tool_policy_overall": {
+    "tool_call_count": 0,
+    "denied_tool_calls": 0,
+    "denied_tool_call_rate": null,
+    "approval_required_tool_calls": 0,
+    "approval_required_tool_call_rate": null,
+    "approval_intervened_attack_runs": 0,
+    "approval_intervened_attack_run_rate": 0.0
+  },
+  "tool_policy_attack_runs": {
+    "tool_call_count": 0,
+    "denied_tool_calls": 0,
+    "denied_tool_call_rate": null,
+    "approval_required_tool_calls": 0,
+    "approval_required_tool_call_rate": null,
+    "approval_intervened_attack_runs": 0,
+    "approval_intervened_attack_run_rate": 0.0
+  },
+  "repeat_stats": [
+    {
+      "repeat_index": 1,
+      "run_count": 39,
+      "benign_run_count": 3,
+      "attack_run_count": 36,
+      "task_success_count": 13,
+      "task_success_rate": 0.3333,
+      "benign_task_success_rate": 0.3333,
+      "attack_task_success_rate": 0.3333,
+      "attack_success_count": 16,
+      "attack_success_rate": 0.4444,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    {
+      "repeat_index": 2,
+      "run_count": 39,
+      "benign_run_count": 3,
+      "attack_run_count": 36,
+      "task_success_count": 13,
+      "task_success_rate": 0.3333,
+      "benign_task_success_rate": 0.3333,
+      "attack_task_success_rate": 0.3333,
+      "attack_success_count": 16,
+      "attack_success_rate": 0.4444,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    }
+  ],
+  "repeat_summary": {
+    "task_success_rate": {
+      "mean": 0.3333,
+      "min": 0.3333,
+      "max": 0.3333,
+      "stdev": 0.0
+    },
+    "attack_success_rate": {
+      "mean": 0.4444,
+      "min": 0.4444,
+      "max": 0.4444,
+      "stdev": 0.0
+    },
+    "canary_leak_rate": {
+      "mean": 0.0,
+      "min": 0.0,
+      "max": 0.0,
+      "stdev": 0.0
+    }
+  },
+  "by_attack_family": {
+    "argument_escalation": {
+      "run_count": 6,
+      "benign_run_count": 0,
+      "attack_run_count": 6,
+      "task_success_count": 2,
+      "task_success_rate": 0.3333,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.3333,
+      "attack_success_count": 4,
+      "attack_success_rate": 0.6667,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    "instruction_override": {
+      "run_count": 18,
+      "benign_run_count": 0,
+      "attack_run_count": 18,
+      "task_success_count": 6,
+      "task_success_rate": 0.3333,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.3333,
+      "attack_success_count": 12,
+      "attack_success_rate": 0.6667,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    "secret_canary_exfiltration": {
+      "run_count": 18,
+      "benign_run_count": 0,
+      "attack_run_count": 18,
+      "task_success_count": 6,
+      "task_success_rate": 0.3333,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.3333,
+      "attack_success_count": 0,
+      "attack_success_rate": 0.0,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    "structured_output_disruption": {
+      "run_count": 18,
+      "benign_run_count": 0,
+      "attack_run_count": 18,
+      "task_success_count": 6,
+      "task_success_rate": 0.3333,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.3333,
+      "attack_success_count": 12,
+      "attack_success_rate": 0.6667,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    "tool_data_exfiltration": {
+      "run_count": 6,
+      "benign_run_count": 0,
+      "attack_run_count": 6,
+      "task_success_count": 2,
+      "task_success_rate": 0.3333,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.3333,
+      "attack_success_count": 0,
+      "attack_success_rate": 0.0,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    },
+    "tool_misuse_inducement": {
+      "run_count": 6,
+      "benign_run_count": 0,
+      "attack_run_count": 6,
+      "task_success_count": 2,
+      "task_success_rate": 0.3333,
+      "benign_task_success_rate": null,
+      "attack_task_success_rate": 0.3333,
+      "attack_success_count": 4,
+      "attack_success_rate": 0.6667,
+      "canary_leak_count": 0,
+      "canary_leak_rate": 0.0
+    }
+  },
+  "by_attack_family_and_defence": {
+    "argument_escalation": {
+      "prompt_hardening": {
+        "summary": {
+          "run_count": 6,
+          "benign_run_count": 0,
+          "attack_run_count": 6,
+          "task_success_count": 2,
+          "task_success_rate": 0.3333,
+          "benign_task_success_rate": null,
+          "attack_task_success_rate": 0.3333,
+          "attack_success_count": 4,
+          "attack_success_rate": 0.6667,
+          "canary_leak_count": 0,
+          "canary_leak_rate": 0.0
+        },
+        "tool_policy": {
+          "tool_call_count": 0,
+          "denied_tool_calls": 0,
+          "denied_tool_call_rate": null,
+          "approval_required_tool_calls": 0,
+          "approval_required_tool_call_rate": null,
+          "approval_intervened_attack_runs": 0,
+          "approval_intervened_attack_run_rate": 0.0
+        }
+      }
+    },
+    "instruction_override": {
+      "prompt_hardening": {
+        "summary": {
+          "run_count": 18,
+          "benign_run_count": 0,
+          "attack_run_count": 18,
+          "task_success_count": 6,
+          "task_success_rate": 0.3333,
+          "benign_task_success_rate": null,
+          "attack_task_success_rate": 0.3333,
+          "attack_success_count": 12,
+          "attack_success_rate": 0.6667,
+          "canary_leak_count": 0,
+          "canary_leak_rate": 0.0
+        },
+        "tool_policy": {
+          "tool_call_count": 0,
+          "denied_tool_calls": 0,
+          "denied_tool_call_rate": null,
+          "approval_required_tool_calls": 0,
+          "approval_required_tool_call_rate": null,
+          "approval_intervened_attack_runs": 0,
+          "approval_intervened_attack_run_rate": 0.0
+        }
+      }
+    },
+    "secret_canary_exfiltration": {
+      "prompt_hardening": {
+        "summary": {
+          "run_count": 18,
+          "benign_run_count": 0,
+          "attack_run_count": 18,
+          "task_success_count": 6,
+          "task_success_rate": 0.3333,
+          "benign_task_success_rate": null,
+          "attack_task_success_rate": 0.3333,
+          "attack_success_count": 0,
+          "attack_success_rate": 0.0,
+          "canary_leak_count": 0,
+          "canary_leak_rate": 0.0
+        },
+        "tool_policy": {
+          "tool_call_count": 0,
+          "denied_tool_calls": 0,
+          "denied_tool_call_rate": null,
+          "approval_required_tool_calls": 0,
+          "approval_required_tool_call_rate": null,
+          "approval_intervened_attack_runs": 0,
+          "approval_intervened_attack_run_rate": 0.0
+        }
+      }
+    },
+    "structured_output_disruption": {
+      "prompt_hardening": {
+        "summary": {
+          "run_count": 18,
+          "benign_run_count": 0,
+          "attack_run_count": 18,
+          "task_success_count": 6,
+          "task_success_rate": 0.3333,
+          "benign_task_success_rate": null,
+          "attack_task_success_rate": 0.3333,
+          "attack_success_count": 12,
+          "attack_success_rate": 0.6667,
+          "canary_leak_count": 0,
+          "canary_leak_rate": 0.0
+        },
+        "tool_policy": {
+          "tool_call_count": 0,
+          "denied_tool_calls": 0,
+          "denied_tool_call_rate": null,
+          "approval_required_tool_calls": 0,
+          "approval_required_tool_call_rate": null,
+          "approval_intervened_attack_runs": 0,
+          "approval_intervened_attack_run_rate": 0.0
+        }
+      }
+    },
+    "tool_data_exfiltration": {
+      "prompt_hardening": {
+        "summary": {
+          "run_count": 6,
+          "benign_run_count": 0,
+          "attack_run_count": 6,
+          "task_success_count": 2,
+          "task_success_rate": 0.3333,
+          "benign_task_success_rate": null,
+          "attack_task_success_rate": 0.3333,
+          "attack_success_count": 0,
+          "attack_success_rate": 0.0,
+          "canary_leak_count": 0,
+          "canary_leak_rate": 0.0
+        },
+        "tool_policy": {
+          "tool_call_count": 0,
+          "denied_tool_calls": 0,
+          "denied_tool_call_rate": null,
+          "approval_required_tool_calls": 0,
+          "approval_required_tool_call_rate": null,
+          "approval_intervened_attack_runs": 0,
+          "approval_intervened_attack_run_rate": 0.0
+        }
+      }
+    },
+    "tool_misuse_inducement": {
+      "prompt_hardening": {
+        "summary": {
+          "run_count": 6,
+          "benign_run_count": 0,
+          "attack_run_count": 6,
+          "task_success_count": 2,
+          "task_success_rate": 0.3333,
+          "benign_task_success_rate": null,
+          "attack_task_success_rate": 0.3333,
+          "attack_success_count": 4,
+          "attack_success_rate": 0.6667,
+          "canary_leak_count": 0,
+          "canary_leak_rate": 0.0
+        },
+        "tool_policy": {
+          "tool_call_count": 0,
+          "denied_tool_calls": 0,
+          "denied_tool_call_rate": null,
+          "approval_required_tool_calls": 0,
+          "approval_required_tool_call_rate": null,
+          "approval_intervened_attack_runs": 0,
+          "approval_intervened_attack_run_rate": 0.0
+        }
+      }
+    }
+  },
+  "approval_interventions_by_attack_family": {
+    "argument_escalation": {
+      "tool_call_count": 0,
+      "denied_tool_calls": 0,
+      "denied_tool_call_rate": null,
+      "approval_required_tool_calls": 0,
+      "approval_required_tool_call_rate": null,
+      "approval_intervened_attack_runs": 0,
+      "approval_intervened_attack_run_rate": 0.0
+    },
+    "instruction_override": {
+      "tool_call_count": 0,
+      "denied_tool_calls": 0,
+      "denied_tool_call_rate": null,
+      "approval_required_tool_calls": 0,
+      "approval_required_tool_call_rate": null,
+      "approval_intervened_attack_runs": 0,
+      "approval_intervened_attack_run_rate": 0.0
+    },
+    "secret_canary_exfiltration": {
+      "tool_call_count": 0,
+      "denied_tool_calls": 0,
+      "denied_tool_call_rate": null,
+      "approval_required_tool_calls": 0,
+      "approval_required_tool_call_rate": null,
+      "approval_intervened_attack_runs": 0,
+      "approval_intervened_attack_run_rate": 0.0
+    },
+    "structured_output_disruption": {
+      "tool_call_count": 0,
+      "denied_tool_calls": 0,
+      "denied_tool_call_rate": null,
+      "approval_required_tool_calls": 0,
+      "approval_required_tool_call_rate": null,
+      "approval_intervened_attack_runs": 0,
+      "approval_intervened_attack_run_rate": 0.0
+    },
+    "tool_data_exfiltration": {
+      "tool_call_count": 0,
+      "denied_tool_calls": 0,
+      "denied_tool_call_rate": null,
+      "approval_required_tool_calls": 0,
+      "approval_required_tool_call_rate": null,
+      "approval_intervened_attack_runs": 0,
+      "approval_intervened_attack_run_rate": 0.0
+    },
+    "tool_misuse_inducement": {
+      "tool_call_count": 0,
+      "denied_tool_calls": 0,
+      "denied_tool_call_rate": null,
+      "approval_required_tool_calls": 0,
+      "approval_required_tool_call_rate": null,
+      "approval_intervened_attack_runs": 0,
+      "approval_intervened_attack_run_rate": 0.0
+    }
+  },
+  "output_path": "results/dissertation/experiments/dissertation-cell-24_20260811T215401/summaries/stats.json"
+}

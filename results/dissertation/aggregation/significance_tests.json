@@ -1,0 +1,356 @@
+{
+  "tests": [
+    {
+      "label": "RQ1/RQ2: secret_canary_exfiltration none vs prompt_hardening",
+      "rate_1": 0.3294,
+      "ci_1": [
+        0.304,
+        0.3558
+      ],
+      "rate_2": 0.0635,
+      "ci_2": [
+        0.0513,
+        0.0783
+      ],
+      "diff_pp": 26.59,
+      "fisher_p": 1.2549610719631685e-67,
+      "significant_at_0.05": true
+    },
+    {
+      "label": "RQ1/RQ2: secret_canary_exfiltration none vs layered_defence",
+      "rate_1": 0.3294,
+      "ci_1": [
+        0.304,
+        0.3558
+      ],
+      "rate_2": 0.0952,
+      "ci_2": [
+        0.0802,
+        0.1127
+      ],
+      "diff_pp": 23.41,
+      "fisher_p": 1.4091115149096192e-48,
+      "significant_at_0.05": true
+    },
+    {
+      "label": "RQ1/RQ2: instruction_override none vs prompt_hardening",
+      "rate_1": 0.8421,
+      "ci_1": [
+        0.8209,
+        0.8612
+      ],
+      "rate_2": 0.7976,
+      "ci_2": [
+        0.7745,
+        0.8189
+      ],
+      "diff_pp": 4.44,
+      "fisher_p": 0.00432587073550967,
+      "significant_at_0.05": true
+    },
+    {
+      "label": "RQ1/RQ2: instruction_override none vs layered_defence",
+      "rate_1": 0.8421,
+      "ci_1": [
+        0.8209,
+        0.8612
+      ],
+      "rate_2": 0.7865,
+      "ci_2": [
+        0.763,
+        0.8082
+      ],
+      "diff_pp": 5.56,
+      "fisher_p": 0.00040093063005074684,
+      "significant_at_0.05": true
+    },
+    {
+      "label": "RQ1/RQ2: structured_output_disruption none vs prompt_hardening",
+      "rate_1": 0.7238,
+      "ci_1": [
+        0.6985,
+        0.7478
+      ],
+      "rate_2": 0.7603,
+      "ci_2": [
+        0.736,
+        0.7831
+      ],
+      "diff_pp": -3.65,
+      "fisher_p": 0.04041803070108968,
+      "significant_at_0.05": true
+    },
+    {
+      "label": "RQ1/RQ2: structured_output_disruption none vs layered_defence",
+      "rate_1": 0.7238,
+      "ci_1": [
+        0.6985,
+        0.7478
+      ],
+      "rate_2": 0.7683,
+      "ci_2": [
+        0.7442,
+        0.7907
+      ],
+      "diff_pp": -4.44,
+      "fisher_p": 0.011799765967991151,
+      "significant_at_0.05": true
+    },
+    {
+      "label": "RQ1/RQ2: argument_escalation none vs prompt_hardening",
+      "rate_1": 0.8333,
+      "ci_1": [
+        0.7197,
+        0.9069
+      ],
+      "rate_2": 0.8333,
+      "ci_2": [
+        0.7197,
+        0.9069
+      ],
+      "diff_pp": 0.0,
+      "fisher_p": 1.0,
+      "significant_at_0.05": false
+    },
+    {
+      "label": "RQ1/RQ2: argument_escalation none vs layered_defence",
+      "rate_1": 0.8333,
+      "ci_1": [
+        0.7197,
+        0.9069
+      ],
+      "rate_2": 0.95,
+      "ci_2": [
+        0.863,
+        0.9829
+      ],
+      "diff_pp": -11.67,
+      "fisher_p": 0.07479871385007801,
+      "significant_at_0.05": false
+    },
+    {
+      "label": "RQ3: ollama tool_integrated benign success none vs prompt_hardening",
+      "rate_1": 0.6667,
+      "ci_1": [
+        0.4878,
+        0.8077
+      ],
+      "rate_2": 0.0,
+      "ci_2": [
+        -0.0,
+        0.1135
+      ],
+      "diff_pp": 66.67,
+      "fisher_p": 1.4334985450146902e-08,
+      "significant_at_0.05": true
+    },
+    {
+      "label": "RQ3: ollama tool_integrated benign success none vs layered_defence",
+      "rate_1": 0.6667,
+      "ci_1": [
+        0.4878,
+        0.8077
+      ],
+      "rate_2": 0.0,
+      "ci_2": [
+        -0.0,
+        0.1135
+      ],
+      "diff_pp": 66.67,
+      "fisher_p": 1.4334985450146902e-08,
+      "significant_at_0.05": true
+    },
+    {
+      "label": "RQ3: openai tool_integrated benign success none vs prompt_hardening",
+      "rate_1": 0.2667,
+      "ci_1": [
+        0.1418,
+        0.4445
+      ],
+      "rate_2": 0.3333,
+      "ci_2": [
+        0.1923,
+        0.5122
+      ],
+      "diff_pp": -6.67,
+      "fisher_p": 0.7787156770945833,
+      "significant_at_0.05": false
+    },
+    {
+      "label": "RQ3: openai tool_integrated benign success none vs layered_defence",
+      "rate_1": 0.2667,
+      "ci_1": [
+        0.1418,
+        0.4445
+      ],
+      "rate_2": 0.2667,
+      "ci_2": [
+        0.1418,
+        0.4445
+      ],
+      "diff_pp": 0.0,
+      "fisher_p": 1.0,
+      "significant_at_0.05": false
+    },
+    {
+      "label": "Confidentiality: ollama direct canary_leak_rate none vs prompt_hardening",
+      "rate_1": 0.24,
+      "ci_1": [
+        0.2191,
+        0.2623
+      ],
+      "rate_2": 0.02,
+      "ci_2": [
+        0.014,
+        0.0284
+      ],
+      "diff_pp": 22.0,
+      "fisher_p": 4.8808759503851984e-82,
+      "significant_at_0.05": true
+    },
+    {
+      "label": "Confidentiality: ollama direct canary_leak_rate none vs layered_defence",
+      "rate_1": 0.24,
+      "ci_1": [
+        0.2191,
+        0.2623
+      ],
+      "rate_2": 0.0333,
+      "ci_2": [
+        0.0254,
+        0.0437
+      ],
+      "diff_pp": 20.67,
+      "fisher_p": 4.899186661733883e-67,
+      "significant_at_0.05": true
+    },
+    {
+      "label": "Confidentiality: openai direct canary_leak_rate none vs prompt_hardening",
+      "rate_1": 0.0027,
+      "ci_1": [
+        0.001,
+        0.0068
+      ],
+      "rate_2": 0.0,
+      "ci_2": [
+        0.0,
+        0.0026
+      ],
+      "diff_pp": 0.27,
+      "fisher_p": 0.1247499583611621,
+      "significant_at_0.05": false
+    },
+    {
+      "label": "Confidentiality: openai direct canary_leak_rate none vs layered_defence",
+      "rate_1": 0.0027,
+      "ci_1": [
+        0.001,
+        0.0068
+      ],
+      "rate_2": 0.0,
+      "ci_2": [
+        0.0,
+        0.0026
+      ],
+      "diff_pp": 0.27,
+      "fisher_p": 0.1247499583611621,
+      "significant_at_0.05": false
+    },
+    {
+      "label": "RQ4: ollama direct none vs layered_defence",
+      "rate_1": 0.9259,
+      "ci_1": [
+        0.9107,
+        0.9387
+      ],
+      "rate_2": 0.7037,
+      "ci_2": [
+        0.6788,
+        0.7275
+      ],
+      "diff_pp": 22.22,
+      "fisher_p": 2.1104232130561364e-52,
+      "significant_at_0.05": true
+    },
+    {
+      "label": "RQ4: ollama indirect none vs layered_defence",
+      "rate_1": 0.6111,
+      "ci_1": [
+        0.5598,
+        0.66
+      ],
+      "rate_2": 0.6667,
+      "ci_2": [
+        0.6164,
+        0.7134
+      ],
+      "diff_pp": -5.56,
+      "fisher_p": 0.1403583137304032,
+      "significant_at_0.05": false
+    },
+    {
+      "label": "RQ4: ollama tool_integrated none vs layered_defence",
+      "rate_1": 0.5833,
+      "ci_1": [
+        0.5318,
+        0.6331
+      ],
+      "rate_2": 0.7222,
+      "ci_2": [
+        0.6738,
+        0.766
+      ],
+      "diff_pp": -13.89,
+      "fisher_p": 0.00012085208811946813,
+      "significant_at_0.05": true
+    },
+    {
+      "label": "RQ4: openai direct none vs layered_defence",
+      "rate_1": 0.4193,
+      "ci_1": [
+        0.3932,
+        0.4458
+      ],
+      "rate_2": 0.3807,
+      "ci_2": [
+        0.3552,
+        0.4069
+      ],
+      "diff_pp": 3.85,
+      "fisher_p": 0.04510364168033318,
+      "significant_at_0.05": true
+    },
+    {
+      "label": "RQ4: openai indirect none vs layered_defence",
+      "rate_1": 0.3333,
+      "ci_1": [
+        0.2866,
+        0.3836
+      ],
+      "rate_2": 0.2778,
+      "ci_2": [
+        0.234,
+        0.3262
+      ],
+      "diff_pp": 5.56,
+      "fisher_p": 0.12414916497064961,
+      "significant_at_0.05": false
+    },
+    {
+      "label": "RQ4: openai tool_integrated none vs layered_defence",
+      "rate_1": 0.5056,
+      "ci_1": [
+        0.4541,
+        0.5569
+      ],
+      "rate_2": 0.5056,
+      "ci_2": [
+        0.4541,
+        0.5569
+      ],
+      "diff_pp": 0.0,
+      "fisher_p": 1.0,
+      "significant_at_0.05": false
+    }
+  ]
+}

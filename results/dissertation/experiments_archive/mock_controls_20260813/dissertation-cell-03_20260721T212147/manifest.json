@@ -1,0 +1,23 @@
+{
+  "experiment_id": "dissertation-cell-03_20260721T212147",
+  "created_at": "2026-07-21T20:21:47.298775+00:00",
+  "config_path": "configs/dissertation/cells/cell_03.yaml",
+  "run_id": "dissertation-cell-03",
+  "environment": "direct",
+  "defence_condition": "none",
+  "model_provider": "mock",
+  "model_name": "mock",
+  "n_repeats": 2,
+  "tool_approval_mode": "off",
+  "structured_output_enforcement": false,
+  "tasks_file": "data/tasks/direct_tasks.jsonl",
+  "task_count": 15,
+  "attack_template_count": 9,
+  "include_benign": true,
+  "include_attacked": true,
+  "output_paths": {
+    "raw_jsonl": "results/dissertation/experiments/dissertation-cell-03_20260721T212147/raw/runs.jsonl",
+    "summary_csv": "results/dissertation/experiments/dissertation-cell-03_20260721T212147/summaries/runs.csv",
+    "stats_json": "results/dissertation/experiments/dissertation-cell-03_20260721T212147/summaries/stats.json"
+  }
+}

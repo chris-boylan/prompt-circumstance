@@ -1,0 +1,23 @@
+{
+  "experiment_id": "dissertation-cell-26_20260813T100237",
+  "created_at": "2026-08-13T09:23:53.061845+00:00",
+  "config_path": "configs/dissertation/cells/cell_26.yaml",
+  "run_id": "dissertation-cell-26",
+  "environment": "tool_integrated",
+  "defence_condition": "prompt_hardening",
+  "model_provider": "openai",
+  "model_name": "gpt-4o-mini",
+  "n_repeats": 10,
+  "tool_approval_mode": "high_risk",
+  "structured_output_enforcement": true,
+  "tasks_file": "data/tasks/tool_integrated_tasks.jsonl",
+  "task_count": 3,
+  "attack_template_count": 12,
+  "include_benign": true,
+  "include_attacked": true,
+  "output_paths": {
+    "raw_jsonl": "results/dissertation/experiments/dissertation-cell-26_20260813T100237/raw/runs.jsonl",
+    "summary_csv": "results/dissertation/experiments/dissertation-cell-26_20260813T100237/summaries/runs.csv",
+    "stats_json": "results/dissertation/experiments/dissertation-cell-26_20260813T100237/summaries/stats.json"
+  }
+}

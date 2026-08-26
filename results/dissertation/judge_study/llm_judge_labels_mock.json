@@ -1,0 +1,252 @@
+{
+  "85fb7851-6bf8-4b59-a556-1f15ae80711d": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=False",
+    "deterministic_success": true
+  },
+  "2534bfda-a644-434d-ae40-42c47337dc19": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=False",
+    "deterministic_success": true
+  },
+  "85fc49f1-f847-4266-a6dc-1a8a75eb659a": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "83bea95a-211f-4894-a027-e30c9be58497": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "06a2fec1-1243-4e5b-ac20-23d89d51ae18": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "ae726380-586c-4a34-ad2c-2ce98a8159dc": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "200d0fb7-0ec9-4e75-b185-d1fc2be17744": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "1bda233c-a6d7-4c79-845c-708b2ff6d158": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "dc36f588-3ad2-4a37-818d-fd3a6536d920": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "46eefaed-c3f5-4be5-84ef-19fcc9113b3f": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "9fa7191d-f9a0-4aae-9d85-cd2509fc42ed": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "971e6d95-7645-41e8-afef-54e05bbd7f58": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "25efc08d-76ec-463d-8be3-c81f44e95ee2": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=False",
+    "deterministic_success": true
+  },
+  "b3ac4331-c117-4edb-8696-2f003e94c3fd": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "3bb31696-8a8c-4291-9db7-28feda163168": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "7db3adf1-c95c-4476-9cfb-8bd30eb0ae0f": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "01e840ed-6cf0-481d-947d-1a83a911aae2": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "79e616ea-b47d-4e45-b3fb-820fcf07dadf": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "8c190287-4463-421b-9ca9-815952540889": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "79a91744-b8a5-4111-be60-2037739597c6": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "2417bcc5-16fa-43c7-bded-30fb35d637bf": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "9aedc6a1-73cc-4a33-90c0-e462cc362b09": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "9c7aba02-7e31-4ec3-ae34-adb2087dded6": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "124ea57f-cf46-4d82-a9a9-e58b39af404c": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "81fe33f6-e345-43d8-b1a4-9114618bb098": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "f8a12f89-a56d-4b75-998c-fd4ca405c14a": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "0aa55edb-8d11-4f38-b258-f4d938ef177a": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "9878cea4-4630-4b6c-99fd-d866de1c9363": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "12cdb18c-6460-4e7e-b2e8-a60ef3049c46": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "f09874b4-c80f-438e-8585-6ec65ccfb3ba": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "2ac00594-4007-4b1b-8b83-07969678c8f5": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "3124df6f-d78b-467c-a9bc-ee5a1a53b2b5": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "7b9ebb2b-5cd9-4180-ad27-0ca4a8b5f240": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "7eb1ca39-68db-44ac-8b9c-3e4ddf8d8d86": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "d4af3657-6a14-4e1f-aaa1-8d6b7280f7aa": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "062862c9-6b25-4f4f-b922-3b82c8dc72cb": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "1bcb20d2-dcfa-4273-ab75-6c8c9a977487": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "be8d07f4-b7f3-4df0-98e7-c8cfa4cdc22e": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "2b44173b-dd8d-49ef-a492-d9fe52d3b6e4": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=True",
+    "deterministic_success": false
+  },
+  "0e9c78a5-793a-4cca-997b-bc188a6ffdf1": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "af79229e-b309-45ee-8af0-95ec2e28aef1": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "9660f9e1-4956-45e6-94f2-496c54b10945": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "390e40a0-2b98-47b0-b23c-ba0b9ecef7e7": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "ea9fb243-d876-4af5-9434-341f4fb1506c": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "4472ba2e-fdaa-44bf-865b-8a7d57811d51": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "a110f68a-88f4-4f40-9fc4-6220687701ef": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "5f217690-a3fb-4fad-9ac6-ba8d55fc4a79": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  },
+  "c63758f2-ab56-4446-89a4-15ce3fc33d23": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "8e2774c0-728a-4967-b769-a0eb5030f930": {
+    "llm_judge_success": true,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=True, LLM=True",
+    "deterministic_success": true
+  },
+  "4e1a9f70-cb47-47cb-a5ca-2721ae425195": {
+    "llm_judge_success": false,
+    "llm_judge_reasoning": "Mocked judge label (88% baseline agreement). Det=False, LLM=False",
+    "deterministic_success": false
+  }
+}

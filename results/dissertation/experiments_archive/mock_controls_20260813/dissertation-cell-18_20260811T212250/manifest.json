@@ -1,0 +1,23 @@
+{
+  "experiment_id": "dissertation-cell-18_20260811T212250",
+  "created_at": "2026-08-11T20:22:50.353372+00:00",
+  "config_path": "configs/dissertation/cells/cell_18.yaml",
+  "run_id": "dissertation-cell-18",
+  "environment": "tool_integrated",
+  "defence_condition": "layered_defence",
+  "model_provider": "mock",
+  "model_name": "mock",
+  "n_repeats": 2,
+  "tool_approval_mode": "high_risk",
+  "structured_output_enforcement": true,
+  "tasks_file": "data/tasks/tool_integrated_tasks.jsonl",
+  "task_count": 3,
+  "attack_template_count": 12,
+  "include_benign": true,
+  "include_attacked": true,
+  "output_paths": {
+    "raw_jsonl": "results/dissertation/experiments/dissertation-cell-18_20260811T212250/raw/runs.jsonl",
+    "summary_csv": "results/dissertation/experiments/dissertation-cell-18_20260811T212250/summaries/runs.csv",
+    "stats_json": "results/dissertation/experiments/dissertation-cell-18_20260811T212250/summaries/stats.json"
+  }
+}

@@ -1,0 +1,42 @@
+=== Dissertation Matrix Sweep ===
+Total cells: 27
+Repeats per cell: 10
+Log directory: results/dissertation/sweep_logs
+
+[1/27] direct / layered_defence / mock/mock ... ✓
+[2/27] direct / layered_defence / ollama/llama3.1:8b ... ✓
+[3/27] direct / layered_defence / openai/gpt-4o-mini ... ✗
+  Log: results/dissertation/sweep_logs/cell_02.log
+[4/27] direct / none / mock/mock ... ✓
+[5/27] direct / none / ollama/llama3.1:8b ... ✓
+[6/27] direct / none / openai/gpt-4o-mini ... ✗
+  Log: results/dissertation/sweep_logs/cell_05.log
+[7/27] direct / prompt_hardening / mock/mock ... ✓
+[8/27] direct / prompt_hardening / ollama/llama3.1:8b ... ✓
+[9/27] direct / prompt_hardening / openai/gpt-4o-mini ... ✗
+  Log: results/dissertation/sweep_logs/cell_08.log
+[10/27] indirect / layered_defence / mock/mock ... ✓
+[11/27] indirect / layered_defence / ollama/llama3.1:8b ... ✓
+[12/27] indirect / layered_defence / openai/gpt-4o-mini ... ✗
+  Log: results/dissertation/sweep_logs/cell_11.log
+[13/27] indirect / none / mock/mock ... ✓
+[14/27] indirect / none / ollama/llama3.1:8b ... ✓
+[15/27] indirect / none / openai/gpt-4o-mini ... ✗
+  Log: results/dissertation/sweep_logs/cell_14.log
+[16/27] indirect / prompt_hardening / mock/mock ... ✓
+[17/27] indirect / prompt_hardening / ollama/llama3.1:8b ... ✓
+[18/27] indirect / prompt_hardening / openai/gpt-4o-mini ... ✗
+  Log: results/dissertation/sweep_logs/cell_17.log
+[19/27] tool_integrated / layered_defence / mock/mock ... ✓
+[20/27] tool_integrated / layered_defence / ollama/llama3.1:8b ... ✓
+[21/27] tool_integrated / layered_defence / openai/gpt-4o-mini ... ✗
+  Log: results/dissertation/sweep_logs/cell_20.log
+[22/27] tool_integrated / none / mock/mock ... ✓
+[23/27] tool_integrated / none / ollama/llama3.1:8b ... ✓
+[24/27] tool_integrated / none / openai/gpt-4o-mini ... ✗
+  Log: results/dissertation/sweep_logs/cell_23.log
+[25/27] tool_integrated / prompt_hardening / mock/mock ... ✓
+[26/27] tool_integrated / prompt_hardening / ollama/llama3.1:8b ... ✓
+[27/27] tool_integrated / prompt_hardening / openai/gpt-4o-mini ... ✗
+  Log: results/dissertation/sweep_logs/cell_26.log
+configs/dissertation/sweep.sh: line 74: unexpected EOF while looking for matching `"'

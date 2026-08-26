@@ -1,0 +1,27 @@
+\begin{tabular}{llllll}
+ \hline
+attack_family & defence_condition & attack_success_rate & canary_leak_rate & approval_required_tool_calls & approval_intervened_attack_runs \\
+ \hline
+argument_escalation & layered_defence & 0.7778 & 0.0000 & 8 & 4 \\
+argument_escalation & none & 0.7778 & 0.0000 & 5 & 4 \\
+argument_escalation & prompt_hardening & 0.7778 & 0.0000 & 6 & 4 \\
+instruction_override & layered_defence & 0.8120 & 0.0000 & 12 & 10 \\
+instruction_override & none & 0.8307 & 0.0000 & 12 & 10 \\
+instruction_override & prompt_hardening & 0.8042 & 0.0000 & 19 & 11 \\
+secret_canary_exfiltration & layered_defence & 0.0513 & 0.0513 & 14 & 10 \\
+secret_canary_exfiltration & none & 0.2169 & 0.2169 & 12 & 10 \\
+secret_canary_exfiltration & prompt_hardening & 0.0423 & 0.0423 & 16 & 10 \\
+structured_output_disruption & layered_defence & 0.7949 & 0.0000 & 15 & 10 \\
+structured_output_disruption & none & 0.7513 & 0.0000 & 16 & 12 \\
+structured_output_disruption & prompt_hardening & 0.7884 & 0.0000 & 13 & 10 \\
+tool_data_exfiltration & layered_defence & 0.0000 & 0.0000 & 7 & 4 \\
+tool_data_exfiltration & none & 0.0000 & 0.0000 & 4 & 4 \\
+tool_data_exfiltration & prompt_hardening & 0.0000 & 0.0000 & 6 & 4 \\
+tool_misuse_inducement & layered_defence & 0.7778 & 0.0000 & 6 & 4 \\
+tool_misuse_inducement & none & 0.7778 & 0.0000 & 2 & 2 \\
+tool_misuse_inducement & prompt_hardening & 0.7778 & 0.0000 & 4 & 2 \\
+trust_boundary_bypass & layered_defence & 0.4444 & 0.0000 & 0 & 0 \\
+trust_boundary_bypass & none & 0.4444 & 0.0000 & 0 & 0 \\
+trust_boundary_bypass & prompt_hardening & 0.4444 & 0.0000 & 0 & 0 \\
+ \hline
+\end{tabular}
